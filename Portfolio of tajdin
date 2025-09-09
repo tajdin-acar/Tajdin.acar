@@ -68,7 +68,13 @@
           <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.56 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z" fill="white"/></svg></div>
           <strong>TAJDIN · Finance & Strategy</strong>
         </div>
-        <div class="tabs" id="tabs"></div>
+        <div class="tabs" id="tabs">
+          <a href="#accueil" class="tab active">Accueil</a>
+          <a href="#carriere" class="tab">Carrière</a>
+          <a href="#formation" class="tab">Formation</a>
+          <a href="#articles" class="tab">Articles</a>
+          <a href="#contact" class="tab">Contact</a>
+        </div>
       </nav>
     </div>
   </header>
@@ -455,8 +461,10 @@
   function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1300) }
 
   // ===== INIT =====
+  if(!location.hash) location.hash = '#accueil';
   document.getElementById('year').textContent = new Date().getFullYear();
   window.addEventListener('hashchange', ()=>{ route(); setTimeout(bindArticles,0) });
+  window.addEventListener('DOMContentLoaded', ()=>{ route(); setTimeout(bindArticles,0) });
   route();
   setTimeout(bindArticles,0);
   </script>
