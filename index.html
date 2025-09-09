@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – Tajdin</title>
+  <meta name="description" content="Portfolio, expériences, carrière, articles et contact" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#121822; --card2:#0f141c; --txt:#e7eef7; --muted:#aab7c7; --pri:#2f80ed; --pri-2:#6aa5ff; --ok:#2ecc71; --ko:#ff5c5c; --acc:#f2c94c;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--txt);background:linear-gradient(180deg,#0b0f14 0%, #0c1017 60%, #0b0f14 100%);} 
+    a{color:var(--pri);text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .shadow{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));backdrop-filter:saturate(120%) blur(10px);border:1px solid rgba(255,255,255,.08);}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.75);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
+    nav{display:flex;align-items:center;gap:14px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--pri),#7f53ac);display:grid;place-items:center}
+    .logo svg{filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap}
+    .tab{padding:10px 14px;border-radius:10px;color:var(--txt);border:1px solid transparent}
+    .tab.active{background:var(--pri);border-color:transparent}
+    .tab:hover{border-color:rgba(255,255,255,.15)}
+    .hero{padding:56px 0}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+    .card{border-radius:16px;background:var(--card);border:1px solid rgba(255,255,255,.08)}
+    .card2{border-radius:16px;background:var(--card2);border:1px solid rgba(255,255,255,.06)}
+    .p16{padding:16px} .p20{padding:20px} .p24{padding:24px}
+    h1{font-size:36px;margin:0 0 8px} h2{font-size:24px;margin:0 0 10px} h3{font-size:18px;margin:0 0 8px}
+    .muted{color:var(--muted)} .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--pri);color:#fff;border:0;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .btn.alt{background:transparent;border:1px solid rgba(255,255,255,.18)}
+    .btn.ok{background:var(--ok)} .btn.ko{background:var(--ko)} .btn.acc{background:var(--acc);color:#0b0f14}
+    .list{display:grid;gap:12px}
+    .item{display:flex;gap:14px;padding:14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+    .avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#7f53ac,var(--pri));display:grid;place-items:center}
+    .badge{font-size:12px;padding:4px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.1)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    footer{padding:40px 0;color:var(--muted)}
+    input,textarea,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:#0e141c;color:var(--txt)}
+    label{font-size:13px;color:var(--muted)}
+    .inline{display:inline-flex;gap:10px;align-items:center}
+    .hidden{display:none}
+    @media (max-width:900px){
+      .grid, .split{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+    }
+    /* simple toast */
+    #toast{position:fixed;right:16px;bottom:16px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(10px);transition:.25s}
+    #toast.show{opacity:1;transform:translateY(0)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Liberation Mono",Consolas,"Courier New",monospace;font-size:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.56 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z" fill="white"/></svg></div>
+          <strong>TAJDIN · Finance & Strategy</strong>
+        </div>
+        <div class="tabs" id="tabs">
+          <a href="#accueil" class="tab active">Accueil</a>
+          <a href="#carriere" class="tab">Carrière</a>
+          <a href="#formation" class="tab">Formation</a>
+          <a href="#articles" class="tab">Articles</a>
+          <a href="#contact" class="tab">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="grid">
+        <div class="card p24 shadow">
+          <h1>Construire la valeur, mesurer l'impact.</h1>
+          <p class="muted">Contrôle de gestion, finance d'entreprise, data. Articles appliqués, projets concrets, et retours d'expérience.</p>
+          <div class="row" style="margin-top:10px">
+            <span class="chip">📍 Paris · Europe/Paris</span>
+            <span class="chip">🎯 Objectif: CFO</span>
+            <span class="chip">⚽ Football · 📚 Histoire</span>
+          </div>
+          <div class="row" style="margin-top:18px">
+            <a class="btn" href="#articles">Lire les articles</a>
+            <a class="btn alt" href="#contact">Me contacter</a>
+          </div>
+        </div>
+        <div class="card2 p24">
+          <h3>En bref</h3>
+          <p class="muted">Actuellement en master finance/contrôle. Expérience FP&A, analyse stratégique, modélisation. J'écris sur la finance actionable: modèles, frameworks, retours terrain.</p>
+          <div class="list" style="margin-top:12px">
+            <div class="item">
+              <div class="avatar">💼</div>
+              <div>
+                <strong>FP&A · Contrôle de gestion</strong>
+                <div class="muted">Weldom · reporting, budget, variance, automatisation</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="avatar">📊</div>
+              <div>
+                <strong>Stratégie & Modèles</strong>
+                <div class="muted">DCF, LBO, KPI design, VRIO/Porter, pricing</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="avatar">🛠️</div>
+              <div>
+                <strong>Outils</strong>
+                <div class="muted">Excel/Google Sheets, Power BI, Python de base</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="view"></section>
+  </main>
+
+  <footer class="container">
+    <div class="split card2 p16">
+      <div>
+        © <span id="year"></span> Tajdin. Tous droits réservés.
+      </div>
+      <div class="muted" style="text-align:right">
+        Propulsé statiquement sur GitHub Pages. Pas de cookies. Pas de tracking.
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast">Copié</div>
+
+  <script>
+  // ===== CONFIG =====
+  const ADMIN_KEY = "change-me"; // à changer avant de publier
+  const SITE_TABS = [
+    { id:"accueil", label:"Accueil" },
+    { id:"carriere", label:"Carrière" },
+    { id:"formation", label:"Formation" },
+    { id:"articles", label:"Articles" },
+    { id:"contact", label:"Contact" },
+  ];
+
+  // ===== STATE & STORAGE =====
+  const LS_KEYS = {
+    posts:"approvedPosts",
+    pending:"pendingPosts"
+  };
+  const seedPosts = [
+    { id: crypto.randomUUID(), title:"Construire un budget base zéro en 90 minutes", tag:"Contrôle", date:"2025-08-15", body:`Méthode simple: périmètre → hypothèses → drivers → versionning. Fichier partagé, dictionnaire de KPI, contrôle qualité. Modèle inclus.` },
+    { id: crypto.randomUUID(), title:"DCF : 7 pièges qui faussent la valeur", tag:"Corporate Finance", date:"2025-07-02", body:`Taux, terminal value, working capital, dilution, capex de maintenance, taxes effectives, cohérence avec le marché.` }
+  ];
+  function lsGet(k, fallback){
+    try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? fallback }catch{ return fallback }
+  }
+  function lsSet(k, v){ localStorage.setItem(k, JSON.stringify(v)) }
+  if(!lsGet(LS_KEYS.posts)) lsSet(LS_KEYS.posts, seedPosts);
+  if(!lsGet(LS_KEYS.pending)) lsSet(LS_KEYS.pending, []);
+
+  // ===== ROUTER =====
+  function route(){
+    const hash = location.hash.replace('#','') || 'accueil';
+    renderTabs(hash);
+    const view = document.getElementById('view');
+    if(hash === 'accueil') return view.innerHTML = tplAccueil();
+    if(hash === 'carriere') return view.innerHTML = tplCarriere();
+    if(hash === 'formation') return view.innerHTML = tplFormation();
+    if(hash === 'articles') return view.innerHTML = tplArticles();
+    if(hash === 'contact') return view.innerHTML = tplContact();
+    view.innerHTML = tpl404();
+  }
+
+  function renderTabs(active){
+    const el = document.getElementById('tabs');
+    el.innerHTML = SITE_TABS.map(t => `<a href="#${t.id}" class="tab ${active===t.id?'active':''}">${t.label}</a>`).join('');
+  }
+
+  // ===== TOOLS =====
+  function copy(text){ navigator.clipboard.writeText(text); const t=document.getElementById('toast'); t.textContent='Copié'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1300) }
+  function fmtDate(d){ try{ return new Date(d).toLocaleDateString('fr-FR',{year:'numeric',month:'short',day:'2-digit'}) }catch{ return d } }
+
+  // ===== TEMPLATES =====
+  function tplAccueil(){
+    return `
+      <div class="card p24">
+        <div class="split">
+          <div>
+            <h2>Bienvenue</h2>
+            <p class="muted">Je m'appelle Tajdin. J'opère à l'intersection finance d'entreprise, contrôle de gestion et data. Mon objectif: transformer les données en décisions, et les décisions en performance mesurable.</p>
+            <div class="row" style="margin-top:12px">
+              <span class="chip">🎯 Trajectoire: CFO</span>
+              <span class="chip">📍 Paris</span>
+              <span class="chip">🏷️ FP&A · KPI · DCF</span>
+            </div>
+            <div class="row" style="margin-top:16px">
+              <a class="btn" href="#articles">Lire les articles</a>
+              <a class="btn alt" href="#carriere">Voir la carrière</a>
+            </div>
+          </div>
+          <div class="card2 p20">
+            <h3>Chiffres rapides</h3>
+            <div class="grid-3" style="margin-top:8px">
+              ${[
+                {n:'10+',l:'dashboards & rapports'},
+                {n:'15%',l:'réduc. temps clôture'},
+                {n:'3',l:'modèles de valo'},
+              ].map(x=>`<div class="card p16" style="text-align:center"><div style="font-size:28px;font-weight:800">${x.n}</div><div class="muted">${x.l}</div></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card2 p24" style="margin-top:16px">
+        <h2>Réalisations en avant</h2>
+        <div class="grid-3" style="margin-top:10px">
+          ${[
+            {i:'📈',t:'Automatisation reporting',d:'Consolidation mensuelle, contrôles, diffusion.'},
+            {i:'🧮',t:'DCF & scénarios',d:'Sensibilités WACC/TV, cohérence marché.'},
+            {i:'🧭',t:'Cadre KPI',d:'Design, dictionnaire, gouvernance.'}
+          ].map(x=>`<div class="card p16"><div class="avatar">${x.i}</div><strong>${x.t}</strong><p class="muted">${x.d}</p></div>`).join('')}
+        </div>
+      </div>
+      <div class="card p24" style="margin-top:16px">
+        <h2>Ils m'ont formé et inspiré</h2>
+        <div class="row" style="flex-wrap:wrap;margin-top:6px">
+          ${['ESSEC','IAE Paris','Weldom','Power BI','Excel'].map(name=>`
+            <div class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7l9-5z"/></svg> ${name}</div>
+          `).join('')}
+        </div>
+      </div>`
+  }
+
+  function tplFormation(){
+    return `
+      <div class="grid-2">
+        <div class="card p24">
+          <h2>Formation</h2>
+          <ul class="list">
+            <li class="item"><div class="avatar">🎓</div><div><strong>Master Finance & Contrôle</strong><div class="muted">IAE Paris-Sorbonne · en cours</div></div></li>
+            <li class="item"><div class="avatar">🏫</div><div><strong>Global BBA</strong><div class="muted">ESSEC Business School</div></div></li>
+          </ul>
+        </div>
+        <div class="card p24">
+          <h2>Compétences clés</h2>
+          <div class="row" style="margin-top:6px">
+            <span class="badge">FP&A</span>
+            <span class="badge">Contrôle de gestion</span>
+            <span class="badge">Modélisation DCF/LBO</span>
+            <span class="badge">KPI & Budget</span>
+            <span class="badge">Power BI</span>
+            <span class="badge">Excel avancé</span>
+            <span class="badge">Python</span>
+          </div>
+        </div>
+      </div>`
+  },
+              {t:'Analyse stratégique', s:'Études de cas', d:'VRIO/VRINO, Porter, pricing, allocation de capital, due diligence desk.'},
+              {t:'Data & outils', s:'Projets', d:'Dashboards Power BI, scripts Python basiques, modèles financiers.'},
+            ].map(x=>`
+              <div class="item">
+                <div class="avatar">${x.s[0]}</div>
+                <div>
+                  <strong>${x.t}</strong>
+                  <div class="muted">${x.s} · ${x.d}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="card p24">
+          <h2>Études</h2>
+          <ul class="list">
+            <li class="item"><div class="avatar">🎓</div><div><strong>Master Finance & Contrôle</strong><div class="muted">IAE Paris-Sorbonne · en cours</div></div></li>
+            <li class="item"><div class="avatar">🏫</div><div><strong>Global BBA</strong><div class="muted">ESSEC Business School</div></div></li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:16px" class="card2 p24">
+        <h2>Compétences</h2>
+        <div class="row" style="margin-top:6px">
+          <span class="badge">FP&A</span>
+          <span class="badge">Contrôle de gestion</span>
+          <span class="badge">Modélisation DCF/LBO</span>
+          <span class="badge">KPI & Budget</span>
+          <span class="badge">Power BI</span>
+          <span class="badge">Excel avancé</span>
+          <span class="badge">Python</span>
+        </div>
+      </div>`
+  }
+
+  function tplCarriere(){
+    return `
+      <div class="card p24">
+        <h2>Trajectoire</h2>
+        <p class="muted">Objectif court terme: analyste contrôle/FP&A. Objectif long terme: CFO. Intérêt pour M&A opératif, pilotage de performance, et transformation digitale.</p>
+        <div class="grid-3" style="margin-top:10px">
+          ${[
+            {t:'2025–2026',d:'Master + alternance finance/contrôle. 3 études de cas notables, consolidation des outils.'},
+            {t:'2026–2027',d:'VIE ou CDI finance. Focus FP&A, performance, pricing.'},
+            {t:'2028+',d:'Management, pilotage BU, trajectoire CFO.'}
+          ].map(x=>`
+            <div class="card2 p16"><h3>${x.t}</h3><p class="muted">${x.d}</p></div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card2 p24" style="margin-top:16px">
+        <h2>Projets phares</h2>
+        <div class="list" style="margin-top:10px">
+          <div class="item"><div class="avatar">📈</div><div><strong>Automatisation reporting</strong><div class="muted">Réduction du cycle de clôture · scripts, contrôles</div></div></div>
+          <div class="item"><div class="avatar">🧮</div><div><strong>Modèle DCF & sensibilité</strong><div class="muted">Hypothèses, WACC, TV, scénarios</div></div></div>
+          <div class="item"><div class="avatar">🧭</div><div><strong>Cadre KPI</strong><div class="muted">Design KPI, dictionnaire, gouvernance</div></div></div>
+        </div>
+      </div>`
+  }
+
+  function tplArticles(){
+    const posts = lsGet(LS_KEYS.posts, []);
+    return `
+      <div class="split">
+        <div class="card p24">
+          <h2>Articles approuvés</h2>
+          <div id="postList" class="list" style="margin-top:12px">
+            ${posts.length? posts.map(p=> postItem(p)).join('') : `<div class="muted">Aucun article publié pour l'instant.</div>`}
+          </div>
+        </div>
+        <div class="card2 p24">
+          <h2>Proposer un article</h2>
+          <p class="muted">Vous pouvez soumettre un article. Il sera publié après validation.</p>
+          <form id="postForm">
+            <label>Titre<input required name="title" placeholder="Titre"></label>
+            <div style="height:8px"></div>
+            <label>Tag<select name="tag"><option>Finance</option><option>Contrôle</option><option>Stratégie</option><option>Data</option></select></label>
+            <div style="height:8px"></div>
+            <label>Contenu<textarea required name="body" rows="6" placeholder="Votre texte"></textarea></label>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" type="submit">Soumettre</button>
+              <button class="btn alt" type="reset">Effacer</button>
+              <button class="btn acc" type="button" id="adminBtn" title="Espace admin">Admin</button>
+            </div>
+          </form>
+          <div id="adminPanel" class="hidden" style="margin-top:16px">
+            <h3>Validation des articles</h3>
+            <div class="muted">Approbation requise. <span class="kbd">clé admin</span> définie dans le code.</div>
+            <div id="pendingList" class="list" style="margin-top:10px"></div>
+          </div>
+        </div>
+      </div>`
+  }
+
+  function postItem(p){
+    return `<div class="item"><div class="avatar">📝</div><div><strong>${p.title}</strong> <span class="badge">${p.tag}</span><div class="muted">${fmtDate(p.date)}</div><p>${p.body}</p></div><div style="margin-left:auto"><button class="btn alt" onclick="copy('${(p.title||'').replace(/'/g, "\'")} – ${location.origin+location.pathname}#articles')">Copier le lien</button></div></div>`
+  }
+
+  function tplContact(){
+    return `
+      <div class="card p24">
+        <h2>Contact</h2>
+        <p class="muted">Pour missions, échanges, ou collaborations.</p>
+        <form onsubmit="sendMsg(event)">
+          <div class="grid-2">
+            <label>Nom<input name="name" required placeholder="Votre nom"></label>
+            <label>Email<input type="email" name="email" required placeholder="vous@exemple.com"></label>
+          </div>
+          <div style="height:8px"></div>
+          <label>Message<textarea name="message" rows="6" required placeholder="Votre message"></textarea></label>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" type="submit">Envoyer</button>
+            <button class="btn alt" type="reset">Annuler</button>
+          </div>
+        </form>
+        <div style="margin-top:10px" class="muted">Email: <a href="#" onclick="copy('tajdinacar@icloud.com')">tajdinacar@icloud.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank" rel="noopener">Tajdin Acar</a></div>
+      </div>`
+  }
+
+  function tpl404(){
+    return `<div class="card p24"><h2>Introuvable</h2><p class="muted">Onglet inconnu. Utilisez le menu.</p></div>`
+  }
+
+  // ===== INTERACTIONS =====
+  function sendMsg(e){
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const payload = Object.fromEntries(fd.entries());
+    console.log('message', payload); // à brancher vers un service si besoin
+    e.target.reset();
+    const t=document.getElementById('toast'); t.textContent='Message envoyé'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1300)
+  }
+
+  function bindArticles(){
+    const form = document.getElementById('postForm');
+    if(!form) return;
+    form.onsubmit = (e)=>{
+      e.preventDefault();
+      const fd = new FormData(form);
+      const obj = Object.fromEntries(fd.entries());
+      const pending = lsGet(LS_KEYS.pending, []);
+      pending.push({ id: crypto.randomUUID(), title: obj.title.trim(), tag: obj.tag, body: obj.body.trim(), date: new Date().toISOString() });
+      lsSet(LS_KEYS.pending, pending);
+      form.reset();
+      toast('Proposition envoyée');
+      renderPending();
+    };
+    document.getElementById('adminBtn').onclick = adminLogin;
+  }
+
+  function adminLogin(){
+    const key = prompt('Entrer la clé admin');
+    if(key === ADMIN_KEY){
+      document.getElementById('adminPanel').classList.remove('hidden');
+      renderPending();
+    } else {
+      toast('Clé incorrecte');
+    }
+  }
+
+  function renderPending(){
+    const list = document.getElementById('pendingList'); if(!list) return;
+    const pending = lsGet(LS_KEYS.pending, []);
+    if(!pending.length){ list.innerHTML = `<div class="muted">Aucune proposition en attente.</div>`; return; }
+    list.innerHTML = pending.map(p=>`
+      <div class="item">
+        <div class="avatar">⏳</div>
+        <div><strong>${p.title}</strong> <span class="badge">${p.tag}</span><div class="muted">${fmtDate(p.date)}</div><p>${p.body}</p></div>
+        <div style="margin-left:auto" class="row">
+          <button class="btn ok" onclick="approve('${p.id}')">Approuver</button>
+          <button class="btn ko" onclick="reject('${p.id}')">Rejeter</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function approve(id){
+    let pending = lsGet(LS_KEYS.pending, []);
+    const p = pending.find(x=>x.id===id);
+    pending = pending.filter(x=>x.id!==id); lsSet(LS_KEYS.pending, pending);
+    const posts = lsGet(LS_KEYS.posts, []); posts.unshift(p); lsSet(LS_KEYS.posts, posts);
+    toast('Article publié');
+    route();
+    renderPending();
+  }
+  function reject(id){
+    let pending = lsGet(LS_KEYS.pending, []);
+    pending = pending.filter(x=>x.id!==id); lsSet(LS_KEYS.pending, pending);
+    toast('Rejeté');
+    renderPending();
+  }
+
+  function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1300) }
+
+  // ===== INIT =====
+  if(!location.hash) location.hash = '#accueil';
+  document.getElementById('year').textContent = new Date().getFullYear();
+  window.addEventListener('hashchange', ()=>{ route(); setTimeout(bindArticles,0) });
+  window.addEventListener('DOMContentLoaded', ()=>{ route(); setTimeout(bindArticles,0) });
+  route();
+  setTimeout(bindArticles,0);
+  </script>
+</body>
+</html>
