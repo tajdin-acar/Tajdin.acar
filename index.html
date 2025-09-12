@@ -3,269 +3,314 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio – Tajdin</title>
-  <meta name="description" content="Portfolio, carrière, formation, articles et contact" />
+  <title>Tajdin · Portfolio dynamique</title>
+  <meta name="description" content="Portfolio de Tajdin: projets, carrière, formation, articles et contact." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg:#0b0f14; --card:#121822; --card2:#0f141c; --txt:#e7eef7; --muted:#aab7c7; --pri:#2f80ed; }
+    :root{ --bg:#0b0f14; --txt:#e7eef7; --muted:#aab7c7; --pri:#2f80ed; --line:rgba(255,255,255,.12); --card:#111824; --glass:rgba(255,255,255,.06);} 
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--txt);background:#0b0f14}
-    a{color:var(--pri);text-decoration:none}
-    header{position:sticky;top:0;z-index:50;background:#0b0f14d0;backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
-    .container{max-width:1100px;margin:0 auto;padding:16px 24px}
-    nav{display:flex;align-items:center;justify-content:center;gap:16px}
-    .tab{padding:10px 14px;border-radius:10px;color:var(--txt)}
-    .tab.active{background:var(--pri);color:#fff}
-    .tab:hover{background:rgba(255,255,255,.08)}
-    .banner{position:relative;width:100%;min-height:320px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-top:18px}
-    .banner::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55))}
-    .banner img{width:100%;height:100%;object-fit:cover;display:block}
-    .banner .banner-content{position:absolute;left:24px;bottom:24px;right:24px}
-    .banner h1{margin:0 0 8px;font-size:44px}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--txt);background:radial-gradient(1200px 700px at 10% 0%,#0f1622,#0b0f14 70%);scroll-behavior:smooth}
+    a{color:var(--txt);text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .shadow{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+    /* HEADER collant avec indicateur animé */
+    header{position:sticky;top:0;z-index:60;background:rgba(11,15,20,.65);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:.25s}
+    header.scrolled{background:rgba(11,15,20,.9)}
+    .nav{height:70px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--pri),#7f53ac);display:grid;place-items:center}
+    .menu{position:relative;display:flex;gap:6px;align-items:center}
+    .tab{position:relative;padding:10px 14px;border-radius:12px;color:var(--txt);border:1px solid transparent}
+    .tab:hover{background:var(--glass);border-color:var(--line)}
+    .indicator{position:absolute;height:3px;bottom:6px;border-radius:999px;background:linear-gradient(90deg,#6aa5ff,#7f53ac);transition:transform .28s ease, width .28s ease, opacity .28s;opacity:.6}
+
+    /* HERO bannière avec parallax léger */
+    .hero{position:relative;min-height:78vh;display:flex;align-items:flex-end}
+    .hero .bg{position:absolute;inset:0;overflow:hidden}
+    .hero img{width:100%;height:110%;object-fit:cover;transform:translateY(-2%);filter:saturate(105%) contrast(108%)}
+    .hero .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 40% 20%,rgba(0,0,0,.2),rgba(0,0,0,.56) 60%, rgba(0,0,0,.85))}
+    .hero .content{position:relative;padding:56px 0 74px}
+    h1{font-size:56px;line-height:1.05;margin:0 0 10px}
+    .lead{color:var(--muted);font-size:18px}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .chip{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:12px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--pri);color:#fff;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
+    .btn.alt{background:transparent;border:1px solid var(--line)}
+
+    /* sections */
+    section{padding:64px 0}
+    h2{font-size:28px;margin:0 0 8px}
     .muted{color:var(--muted)}
-    .card{border-radius:16px;background:var(--card);border:1px solid rgba(255,255,255,.08)}
-    .card2{border-radius:16px;background:var(--card2);border:1px solid rgba(255,255,255,.06)}
+    .card{border-radius:16px;background:var(--card);border:1px solid var(--line)}
     .p16{padding:16px} .p20{padding:20px} .p24{padding:24px}
-    h2{margin:0 0 8px} h3{margin:0 0 6px}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .chip{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px}
-    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--pri);color:#fff;border:0;padding:10px 14px;border-radius:10px;cursor:pointer}
-    .btn.alt{background:transparent;border:1px solid rgba(255,255,255,.18)}
-    .list{display:grid;gap:12px}
-    .item{display:flex;gap:14px;padding:14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
-    .avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#7f53ac,var(--pri));display:grid;place-items:center}
-    footer{padding:40px 24px;color:var(--muted);text-align:center}
-    input,textarea,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:#0e141c;color:var(--txt)}
+    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);min-height:220px}
+    .tile img{width:100%;height:100%;object-fit:cover;display:block}
+    .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65))}
+    .tile .cap{position:absolute;left:14px;bottom:12px;right:14px;display:flex;justify-content:space-between;gap:8px}
+    .badge{font-size:12px;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--glass)}
+
+    /* timeline */
+    .timeline{position:relative;padding-left:18px}
+    .timeline::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--line)}
+    .step{position:relative;margin:14px 0;padding-left:12px}
+    .step::before{content:"";position:absolute;left:-3px;top:8px;width:10px;height:10px;border-radius:999px;background:var(--pri)}
+
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    /* contact */
+    input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0e141c;color:var(--txt)}
     label{font-size:13px;color:var(--muted)}
-    .hidden{display:none}
-    @media (max-width:900px){ .grid,.grid-2{grid-template-columns:1fr} .grid-3{grid-template-columns:1fr} }
-    #toast{position:fixed;right:16px;bottom:16px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(10px);transition:.25s}
+
+    footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
+
+    @media (max-width:1000px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:700px){ h1{font-size:38px} .grid-3,.grid-2{grid-template-columns:1fr} }
+
+    /* toast */
+    #toast{position:fixed;right:16px;bottom:16px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid var(--line);opacity:0;transform:translateY(10px);transition:.25s}
     #toast.show{opacity:1;transform:translateY(0)}
+      /* quick floating nav */
+    .quicknav{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:80;display:none;gap:8px;padding:8px 10px;border-radius:999px;background:rgba(20,26,36,.92);backdrop-filter:blur(8px);border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .quicknav.show{display:flex}
+    .qtab{padding:8px 12px;border-radius:999px;color:var(--txt)}
+    .qtab.active{background:var(--glass);border:1px solid var(--line)}
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <nav id="nav">
-        <a href="#accueil" class="tab">Accueil</a>
-        <a href="#carriere" class="tab">Carrière</a>
-        <a href="#formation" class="tab">Formation</a>
-        <a href="#articles" class="tab">Articles</a>
-        <a href="#contact" class="tab">Contact</a>
+  <!-- HEADER -->
+  <header id="hdr">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.56 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z" fill="white"/></svg></div>
+        <strong>TAJDIN · Finance & Strategy</strong>
+      </div>
+      <nav class="menu" id="menu">
+        <a class="tab" href="#accueil"   data-id="accueil">Accueil</a>
+        <a class="tab" href="#portfolio" data-id="portfolio">Portfolio</a>
+        <a class="tab" href="#carriere"  data-id="carriere">Carrière</a>
+        <a class="tab" href="#formation" data-id="formation">Formation</a>
+        <a class="tab" href="#articles"  data-id="articles">Articles</a>
+        <a class="tab" href="#contact"   data-id="contact">Contact</a>
+        <span class="indicator" id="indicator" style="width:0;transform:translateX(0)"></span>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section id="hero"></section>
-    <section id="view"></section>
-  </main>
+  <!-- Quick floating nav -->
+  <nav class="quicknav" id="quicknav">
+    <a class="qtab" href="#accueil"   data-id="accueil">Accueil</a>
+    <a class="qtab" href="#portfolio" data-id="portfolio">Portfolio</a>
+    <a class="qtab" href="#carriere"  data-id="carriere">Carrière</a>
+    <a class="qtab" href="#formation" data-id="formation">Formation</a>
+    <a class="qtab" href="#articles"  data-id="articles">Articles</a>
+    <a class="qtab" href="#contact"   data-id="contact">Contact</a>
+  </nav>
+
+  <!-- ACCUEIL -->
+  <section class="hero" id="accueil">
+    <div class="bg">
+      <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1920&auto=format&fit=crop" alt="Finance background"/>
+    </div>
+    <div class="container content">
+      <h1 class="reveal">Construire la valeur, mesurer l'impact.</h1>
+      <p class="lead reveal" style="transition-delay:.06s">Ce portfolio présente ce que je fais, ce que j'apprends et où je veux aller. Objectif: devenir un leader financier rigoureux, utile et proche du terrain.</p>
+      <div class="chips reveal" style="transition-delay:.12s">
+        <span class="chip">📍 Paris</span>
+        <span class="chip">🎯 Trajectoire CFO</span>
+        <span class="chip">📊 FP&A · KPI · DCF</span>
+      </div>
+      <div class="row reveal" style="margin-top:16px;transition-delay:.18s">
+        <a class="btn" href="#contact">Me contacter</a>
+        <a class="btn alt" href="#articles">Lire les articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <h2>Portfolio</h2>
+      <p class="muted">Reporting, modèles de valorisation, design de KPI.</p>
+      <div class="grid-3" style="margin-top:12px">
+        <a class="tile reveal" href="#" title="Automatisation reporting"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" alt="Reporting"/><div class="cap"><span><strong>Automatisation reporting</strong></span><span class="badge">FP&A</span></div></a>
+        <a class="tile reveal" href="#" title="DCF & scénarios" style="transition-delay:.06s"><img src="https://images.unsplash.com/photo-1554224155-3a589877462f?q=80&w=1200&auto=format&fit=crop" alt="DCF"/><div class="cap"><span><strong>DCF & scénarios</strong></span><span class="badge">Valo</span></div></a>
+        <a class="tile reveal" href="#" title="Cadre KPI" style="transition-delay:.12s"><img src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?q=80&w=1200&auto=format&fit=crop" alt="KPI"/><div class="cap"><span><strong>Cadre KPI</strong></span><span class="badge">Performance</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRIÈRE -->
+  <section id="carriere">
+    <div class="container">
+      <h2>Carrière</h2>
+      <p class="muted">Contrôle de gestion, finance d'entreprise, transformation.</p>
+      <div class="grid-2" style="margin-top:12px">
+        <div class="card p24 reveal">
+          <h3>Trajectoire</h3>
+          <div class="timeline">
+            <div class="step"><strong>2025–2026</strong> · Master + alternance finance/contrôle. 3 cas majeurs, outils solides.</div>
+            <div class="step"><strong>2026–2027</strong> · VIE ou CDI finance. FP&A, performance, pricing.</div>
+            <div class="step"><strong>2028+</strong> · Management, pilotage BU, trajectoire CFO.</div>
+          </div>
+        </div>
+        <div class="card p24 reveal" style="transition-delay:.06s">
+          <h3>Points forts</h3>
+          <div class="row" style="margin-top:6px">
+            <span class="badge">Reporting & Clôture</span>
+            <span class="badge">Modèles DCF/LBO</span>
+            <span class="badge">Design KPI</span>
+            <span class="badge">Power BI</span>
+            <span class="badge">Excel avancé</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATION -->
+  <section id="formation">
+    <div class="container">
+      <h2>Formation</h2>
+      <div class="grid-2" style="margin-top:12px">
+        <div class="card p24 reveal">
+          <h3>Parcours</h3>
+          <ul class="list" style="list-style:none;padding:0;margin:0;display:grid;gap:12px">
+            <li class="row"><div class="badge">🎓</div><div><strong>Master Finance & Contrôle</strong><div class="muted">IAE Paris-Sorbonne · en cours</div></div></li>
+            <li class="row"><div class="badge">🏫</div><div><strong>Global BBA</strong><div class="muted">ESSEC Business School</div></div></li>
+          </ul>
+        </div>
+        <div class="card p24 reveal" style="transition-delay:.06s">
+          <h3>Compétences</h3>
+          <div class="row" style="margin-top:6px">
+            <span class="badge">FP&A</span><span class="badge">Contrôle de gestion</span><span class="badge">DCF/LBO</span>
+            <span class="badge">KPI & Budget</span><span class="badge">Power BI</span><span class="badge">Python</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section id="articles">
+    <div class="container">
+      <h2>Articles</h2>
+      <p class="muted">Notes de travail et retours d'expérience.</p>
+      <div id="posts" class="list" style="margin-top:12px;display:grid;gap:12px"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="grid-2" style="margin-top:12px">
+        <div class="card p24 reveal">
+          <p class="muted">Pour missions, échanges, ou collaborations.</p>
+          <form id="contactForm">
+            <label>Nom<input name="name" required placeholder="Votre nom"></label>
+            <div style="height:8px"></div>
+            <label>Email<input type="email" name="email" required placeholder="vous@exemple.com"></label>
+            <div style="height:8px"></div>
+            <label>Message<textarea name="message" rows="6" required placeholder="Votre message"></textarea></label>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" type="submit">Envoyer</button>
+              <button class="btn alt" type="reset">Annuler</button>
+            </div>
+          </form>
+        </div>
+        <div class="card p24 reveal" style="transition-delay:.06s">
+          <h3>Coordonnées</h3>
+          <p class="muted">Email : <a href="#" onclick="copy('tajdinacar@icloud.com')">tajdinacar@icloud.com</a></p>
+          <p class="muted">LinkedIn : <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank" rel="noopener">Tajdin Acar</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    © <span id="year"></span> Tajdin · <a href="mailto:tajdinacar@icloud.com">tajdinacar@icloud.com</a> · <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="container">© <span id="year"></span> Tajdin · GitHub Pages. Pas de cookies.</div>
   </footer>
 
   <div id="toast">Copié</div>
 
   <script>
-  // ===== CONFIG =====
-  const ADMIN_KEY = "change-me"; // change avant publication
-  const LS = { posts:"approvedPosts", pending:"pendingPosts" };
-  const seed = [
-    { id: crypto.randomUUID(), title:"Budget base zéro en 90 minutes", tag:"Contrôle", date:"2025-08-15", body:"Périmètre → hypothèses → drivers → versions. Dictionnaire KPI et contrôle qualité." },
-    { id: crypto.randomUUID(), title:"DCF : 7 pièges fréquents", tag:"Corporate Finance", date:"2025-07-02", body:"Taux, TV, BFR, capex maintenance, taxes effectives, dilution, cohérence marché." }
-  ];
-  if(!JSON.parse(localStorage.getItem(LS.posts) || "null")) localStorage.setItem(LS.posts, JSON.stringify(seed));
-  if(!JSON.parse(localStorage.getItem(LS.pending) || "null")) localStorage.setItem(LS.pending, JSON.stringify([]));
+    // seed posts dynamiques
+    const postsData = [
+      {title:"Budget base zéro en 90 min", tag:"Contrôle", date:"2025-08-15", body:"Méthode simple: périmètre → hypothèses → drivers → versions. Dictionnaire KPI et contrôle qualité."},
+      {title:"DCF : 7 pièges", tag:"Corporate Finance", date:"2025-07-02", body:"Taux, TV, BFR, capex maintenance, taxes effectives, dilution, cohérence marché."},
+      {title:"KPI qui comptent", tag:"Performance", date:"2025-06-10", body:"Moins mais mieux: 8 KPI reliés au cash, cadence mensuelle, responsabilité claire."}
+    ];
 
-  // ===== UTIL =====
-  const qs = s => document.querySelector(s);
-  function toast(msg){ const t=qs('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200) }
-  function copy(text){ navigator.clipboard.writeText(text); toast('Copié') }
-  function fmtDate(d){ try{ return new Date(d).toLocaleDateString('fr-FR',{year:'numeric',month:'short',day:'2-digit'}) }catch{ return d } }
-  function lsGet(k, fb){ try{ return JSON.parse(localStorage.getItem(k)) ?? fb }catch{ return fb } }
-  function lsSet(k, v){ localStorage.setItem(k, JSON.stringify(v)) }
+    // render posts
+    const postsEl = document.getElementById('posts');
+    postsEl.innerHTML = postsData.map(p=>`<div class="card p16 reveal"><div class="row" style="align-items:flex-start"><div class="badge">📝</div><div><strong>${p.title}</strong> <span class="badge">${p.tag}</span><div class="muted">${new Date(p.date).toLocaleDateString('fr-FR',{year:'numeric',month:'short',day:'2-digit'})}</div><p>${p.body}</p></div></div></div>`).join('');
 
-  // ===== ROUTER =====
-  function setActive(hash){ document.querySelectorAll('#nav .tab').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===hash)) }
-  function route(){
-    const hash = location.hash || '#accueil';
-    setActive(hash);
-    const hero = qs('#hero');
-    const view = qs('#view');
-    if(hash==='#accueil'){ hero.innerHTML=banner(); view.innerHTML=tplAccueil(); bindArticles(false); return; }
-    hero.innerHTML='';
-    if(hash==='#carriere')   return view.innerHTML=tplCarriere();
-    if(hash==='#formation')  return view.innerHTML=tplFormation();
-    if(hash==='#articles'){  view.innerHTML=tplArticles(); bindArticles(true); return; }
-    if(hash==='#contact')    return view.innerHTML=tplContact();
-    view.innerHTML=tpl404();
-  }
+    // nav indicator + scroll spy
+    const menu = document.getElementById('menu');
+    const tabs = Array.from(menu.querySelectorAll('.tab'));
+    const indicator = document.getElementById('indicator');
+    const qmenu = document.getElementById('quicknav');
+    const qtabs = Array.from(qmenu.querySelectorAll('.qtab'));
+    const sections = ['accueil','portfolio','carriere','formation','articles','contact'].map(id=>document.getElementById(id));
 
-  // ===== BANNIÈRE =====
-  function banner(){
-    return `
-      <div class="banner">
-        <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1920&auto=format&fit=crop" alt="Finance banner"/>
-        <div class="banner-content">
-          <h1>Construire la valeur, mesurer l'impact.</h1>
-          <p class="muted">Passioné par la finance, je suis tourné aujourd'hui vers le finance corporate</p>
-          <div class="row" style="margin-top:10px">
-            <span class="chip">🎯 Trajectoire: CFO</span>
-            <span class="chip">📍 Paris</span>
-            <span class="chip">🏷️ FP&A · KPI · DCF</span>
-          </div>
-        </div>
-      </div>`
-  }
+    function moveIndicator(el){
+      const pr = menu.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      indicator.style.width = r.width + 'px';
+      indicator.style.transform = `translateX(${r.left - pr.left}px)`;
+    }
+    function setActive(id){
+      tabs.forEach(a=>a.classList.toggle('active', a.dataset.id===id));
+      qtabs.forEach(a=>a.classList.toggle('active', a.dataset.id===id));
+      const el = tabs.find(a=>a.dataset.id===id); if(el) moveIndicator(el);
+    }
+    function onScroll(){
+      const y = window.scrollY + 140;
+      let cur = sections[0].id;
+      for(const s of sections){ if(s.offsetTop <= y) cur = s.id; }
+      setActive(cur);
+      document.getElementById('hdr').classList.toggle('scrolled', window.scrollY>4);
+      qmenu.classList.toggle('show', window.scrollY > 260);
+    }
+    function smoothTo(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({top, behavior:'smooth'});
+    }
+    tabs.forEach(a=>{ a.addEventListener('click',(e)=>{ e.preventDefault(); smoothTo(a.getAttribute('href').slice(1)); });
+                      a.addEventListener('mouseenter', ()=>moveIndicator(a));
+                      a.addEventListener('mouseleave', ()=>{ const act = menu.querySelector('.tab.active'); if(act) moveIndicator(act); });});
+    qtabs.forEach(a=>{ a.addEventListener('click',(e)=>{ e.preventDefault(); smoothTo(a.getAttribute('href').slice(1)); }); });
 
-  // ===== TEMPLATES =====
-  function tplAccueil(){
-    return `
-      <div class="grid" style="margin-top:18px">
-        <div class="card p24">
-          <h2>En bref</h2>
-          <p class="muted">Finance d'entreprise, contrôle de gestion, et data. Articles courts et applicables pour passer des chiffres à l'action.</p>
-          <div class="list" style="margin-top:12px">
-            <div class="item"><div class="avatar">💼</div><div><strong>FP&A · Contrôle</strong><div class="muted">Reporting, budget, écarts, automatisation</div></div></div>
-            <div class="item"><div class="avatar">📊</div><div><strong>Stratégie & Modèles</strong><div class="muted">DCF, scénarios, allocation de capital, VRIO/Porter</div></div></div>
-            <div class="item"><div class="avatar">🛠️</div><div><strong>Outils</strong><div class="muted">Excel/Google Sheets, Power BI, Python basique</div></div></div>
-          </div>
-          <div class="row" style="margin-top:16px">
-            <a class="btn" href="#articles">Lire les articles</a>
-            <a class="btn alt" href="#contact">Me contacter</a>
-          </div>
-        </div>
-        <div class="card2 p24">
-          <h3>Chiffres rapides</h3>
-          <div class="grid-3" style="margin-top:8px">
-            ${[{n:'10+',l:'dashboards & rapports'},{n:'15%',l:'réduc. temps de clôture'},{n:'3',l:'modèles de valo publiés'}].map(x=>`<div class="card p16" style="text-align:center"><div style="font-size:28px;font-weight:800">${x.n}</div><div class="muted">${x.l}</div></div>`).join('')}
-          </div>
-          <div style="margin-top:14px" class="muted">Email: <a href="#" onclick="copy('tajdinacar@icloud.com')">tajdinacar@icloud.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank" rel="noopener">Tajdin Acar</a></div>
-        </div>
-      </div>`
-  }
+    // reveal on view
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  function tplCarriere(){
-    return `
-      <div class="card p24">
-        <h2>Trajectoire</h2>
-        <p class="muted">Court terme: analyste contrôle/FP&A. Long terme: CFO. Intérêt pour M&A opératif, pilotage de performance, transformation.</p>
-        <div class="grid-3" style="margin-top:10px">
-          ${[
-            {t:'2025–2026',d:'Master + alternance finance/contrôle. 3 cas majeurs. Outils solides.'},
-            {t:'2026–2027',d:'VIE ou CDI finance. Focus FP&A, performance, pricing.'},
-            {t:'2028+',d:'Management, pilotage BU, trajectoire CFO.'}
-          ].map(x=>`<div class="card2 p16"><h3>${x.t}</h3><p class="muted">${x.d}</p></div>`).join('')}
-        </div>
-      </div>`
-  }
+    // contact form
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const fd = new FormData(e.target); console.log('contact', Object.fromEntries(fd.entries()));
+      e.target.reset(); toast('Message envoyé');
+    });
 
-  function tplFormation(){
-    return `
-      <div class="grid-2">
-        <div class="card p24">
-          <h2>Formation</h2>
-          <ul class="list">
-            <li class="item"><div class="avatar">🎓</div><div><strong>Master Finance & Contrôle</strong><div class="muted">IAE Paris-Sorbonne · en cours</div></div></li>
-            <li class="item"><div class="avatar">🏫</div><div><strong>Global BBA</strong><div class="muted">ESSEC Business School</div></div></li>
-          </ul>
-        </div>
-        <div class="card p24">
-          <h2>Compétences clés</h2>
-          <div class="row" style="margin-top:6px">
-            <span class="chip">FP&A</span><span class="chip">Contrôle de gestion</span><span class="chip">Modélisation DCF/LBO</span>
-            <span class="chip">KPI & Budget</span><span class="chip">Power BI</span><span class="chip">Excel avancé</span><span class="chip">Python</span>
-          </div>
-        </div>
-      </div>`
-  }
+    function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200) }
+    function copy(text){ navigator.clipboard.writeText(text); toast('Copié') }
 
-  function postItem(p){
-    const link = `${location.origin+location.pathname}#articles`;
-    return `<div class="item"><div class="avatar">📝</div><div><strong>${p.title}</strong> <span class="chip">${p.tag}</span><div class="muted">${fmtDate(p.date)}</div><p>${p.body}</p></div><div style="margin-left:auto"><button class="btn alt" onclick="copy('${(p.title||'').replace(/'/g, "\'")} – ${link}')">Copier le lien</button></div></div>`
-  }
-
-  function tplArticles(){
-    const posts = lsGet(LS.posts, []);
-    return `
-      <div class="grid">
-        <div class="card p24">
-          <h2>Articles approuvés</h2>
-          <div id="postList" class="list" style="margin-top:12px">
-            ${posts.length? posts.map(p=> postItem(p)).join('') : `<div class="muted">Aucun article publié pour l'instant.</div>`}
-          </div>
-        </div>
-        <div class="card2 p24">
-          <h2>Proposer un article</h2>
-          <p class="muted">Soumettez un article. Publication après validation.</p>
-          <form id="postForm">
-            <label>Titre<input required name="title" placeholder="Titre"></label>
-            <div style="height:8px"></div>
-            <label>Tag<select name="tag"><option>Finance</option><option>Contrôle</option><option>Stratégie</option><option>Data</option></select></label>
-            <div style="height:8px"></div>
-            <label>Contenu<textarea required name="body" rows="6" placeholder="Votre texte"></textarea></label>
-            <div class="row" style="margin-top:10px">
-              <button class="btn" type="submit">Soumettre</button>
-              <button class="btn alt" type="reset">Effacer</button>
-              <button class="btn" style="background:#f2c94c;color:#0b0f14" type="button" id="adminBtn">Admin</button>
-            </div>
-          </form>
-          <div id="adminPanel" class="hidden" style="margin-top:16px">
-            <h3>Validation des articles</h3>
-            <div class="muted">Approbation requise. Clé admin définie dans le code.</div>
-            <div id="pendingList" class="list" style="margin-top:10px"></div>
-          </div>
-        </div>
-      </div>`
-  }
-
-  function tplContact(){
-    return `
-      <div class="card p24">
-        <h2>Contact</h2>
-        <p class="muted">Pour missions, échanges, ou collaborations.</p>
-        <form onsubmit="sendMsg(event)">
-          <div class="grid-2">
-            <label>Nom<input name="name" required placeholder="Votre nom"></label>
-            <label>Email<input type="email" name="email" required placeholder="vous@exemple.com"></label>
-          </div>
-          <div style="height:8px"></div>
-          <label>Message<textarea name="message" rows="6" required placeholder="Votre message"></textarea></label>
-          <div class="row" style="margin-top:10px">
-            <button class="btn" type="submit">Envoyer</button>
-            <button class="btn alt" type="reset">Annuler</button>
-          </div>
-        </form>
-        <div style="margin-top:10px" class="muted">Email : <a href="#" onclick="copy('tajdinacar@icloud.com')">tajdinacar@icloud.com</a> · LinkedIn : <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank" rel="noopener">Tajdin Acar</a></div>
-      </div>`
-  }
-
-  function tpl404(){ return `<div class="card p24"><h2>Introuvable</h2><p class="muted">Onglet inconnu. Utilisez le menu.</p></div>` }
-
-  // ===== INTERACTIONS =====
-  function sendMsg(e){ e.preventDefault(); const fd=new FormData(e.target); console.log('message',Object.fromEntries(fd.entries())); e.target.reset(); toast('Message envoyé') }
-  function bindArticles(onArticlesPage){
-    const form = document.getElementById('postForm'); if(!form) return;
-    form.onsubmit = (e)=>{ e.preventDefault(); const fd=new FormData(form); const obj=Object.fromEntries(fd.entries()); const pending=lsGet(LS.pending,[]); pending.push({id:crypto.randomUUID(),title:obj.title.trim(),tag:obj.tag,body:obj.body.trim(),date:new Date().toISOString()}); lsSet(LS.pending,pending); form.reset(); toast('Proposition envoyée'); if(onArticlesPage) renderPending(); };
-    const btn = document.getElementById('adminBtn'); if(btn) btn.onclick = adminLogin;
-  }
-  function adminLogin(){ const key=prompt('Entrer la clé admin'); if(key===ADMIN_KEY){ qs('#adminPanel').classList.remove('hidden'); renderPending(); } else { toast('Clé incorrecte') } }
-  function renderPending(){ const list=qs('#pendingList'); if(!list) return; const p=lsGet(LS.pending,[]); if(!p.length){ list.innerHTML=`<div class="muted">Aucune proposition en attente.</div>`; return } list.innerHTML=p.map(x=>`<div class="item"><div class="avatar">⏳</div><div><strong>${x.title}</strong> <span class="chip">${x.tag}</span><div class="muted">${fmtDate(x.date)}</div><p>${x.body}</p></div><div style="margin-left:auto" class="row"><button class="btn" style="background:#2ecc71" onclick="approve('${x.id}')">Approuver</button><button class="btn" style="background:#ff5c5c" onclick="reject('${x.id}')">Rejeter</button></div></div>`).join('') }
-  function approve(id){ let p=lsGet(LS.pending,[]); const it=p.find(x=>x.id===id); p=p.filter(x=>x.id!==id); lsSet(LS.pending,p); const posts=lsGet(LS.posts,[]); posts.unshift(it); lsSet(LS.posts,posts); toast('Article publié'); route(); renderPending(); }
-  function reject(id){ let p=lsGet(LS.pending,[]); p=p.filter(x=>x.id!==id); lsSet(LS.pending,p); toast('Rejeté'); renderPending(); }
-
-  // ===== INIT =====
-  if(!location.hash) location.hash = '#accueil';
-  document.getElementById('year').textContent = new Date().getFullYear();
-  window.addEventListener('hashchange', route);
-  window.addEventListener('DOMContentLoaded', route);
-  route();
+    // init
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('load', ()=>{ onScroll(); const act = menu.querySelector('.tab.active')||tabs[0]; moveIndicator(act); });
   </script>
 </body>
 </html>
