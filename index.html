@@ -9,14 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#111827;           /* plus clair */
-  --bg2:#0f1624;
-  --txt:#eaf0f8;
-  --muted:#a9b6c8;
-  --pri:#2f80ed;
-  --line:rgba(255,255,255,.18);
-  --card:#182235;         /* cartes plus claires */
-  --glass:rgba(255,255,255,.07);
+  --bg:#111827; --bg2:#0f1624;
+  --txt:#eaf0f8; --muted:#a9b6c8;
+  --pri:#2f80ed; --line:rgba(255,255,255,.18);
+  --card:#182235; --glass:rgba(255,255,255,.07);
+  --sh-card:0 14px 38px rgba(0,0,0,.35),0 3px 10px rgba(0,0,0,.25);
+  --sh-raise:0 22px 60px rgba(0,0,0,.45),0 4px 14px rgba(0,0,0,.3);
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:radial-gradient(1200px 700px at 10% 0%,var(--bg),var(--bg2) 70%);scroll-behavior:smooth}
@@ -25,11 +23,20 @@ a{color:inherit;text-decoration:none}
 
 /* MICROBAR (disparaît au scroll) */
 header{position:sticky;top:0;z-index:90}
-#microbar{height:56px;display:flex;align-items:center;background:rgba(17,24,39,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:.25s}
-header.hide-micro #microbar{transform:translateY(-100%);opacity:0}
+#microbar{height:56px;display:flex;align-items:center;background:rgba(17,24,39,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:.2s}
+header.hide-micro #microbar{display:none}
 .micro-wrap{display:flex;align-items:center;gap:14px;width:100%}
+
+/* Logo + marque */
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.6px}
 .brand svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+
+/* Marque flottante gauche */
+.floating-brand{position:fixed;left:18px;top:84px;z-index:95;display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(24,34,53,.7);backdrop-filter:blur(12px);box-shadow:var(--sh-card)}
+.floating-brand small{color:var(--muted);font-weight:700;letter-spacing:.6px}
+@media (max-width:840px){.floating-brand{display:none}}
+
+/* Centre CV | Articles + langues à droite */
 .center-links{margin:0 auto;display:flex;gap:28px;align-items:center;justify-content:center}
 .center-link{font-weight:700}
 .center-link:hover{text-decoration:underline}
@@ -47,34 +54,31 @@ h1{font-size:56px;line-height:1.05;margin:0 0 10px}
 .lead{color:var(--muted);font-size:18px}
 .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .chip{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:12px}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:10px;background:var(--pri);color:#fff;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
-.btn.alt{background:transparent;border:1px solid var(--line)}
 
-/* TABS BAR collante sous l'image */
-.tabs-bar{position:sticky;top:0;z-index:80;padding:16px 0;background:linear-gradient(180deg, rgba(17,24,39,.9), rgba(17,24,39,.88));backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+/* TABS collants : toujours visibles */
+.tabs-bar{position:sticky;top:0;z-index:88;padding:16px 0;background:linear-gradient(180deg, rgba(17,24,39,.92), rgba(17,24,39,.88));backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .tabs-shell{display:flex;justify-content:center}
-.tabs{position:relative;display:flex;gap:8px;align-items:center;padding:8px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.25)}
-.t{position:relative;padding:10px 16px;border-radius:999px}
+.tabs{position:relative;display:flex;gap:8px;align-items:center;padding:10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);box-shadow:var(--sh-card)}
+.t{position:relative;padding:12px 18px;border-radius:999px}
 .t:hover{background:rgba(255,255,255,.08)}
-.tabs-ind{position:absolute;height:3px;bottom:6px;border-radius:999px;background:linear-gradient(90deg,#6aa5ff,#7f53ac);transition:transform .28s ease,width .28s ease;}
+.tabs-ind{position:absolute;height:3px;bottom:8px;border-radius:999px;background:linear-gradient(90deg,#6aa5ff,#7f53ac);transition:transform .28s ease,width .28s ease}
 
 /* SECTIONS */
 section{padding:64px 0}
 h2{font-size:28px;margin:0 0 8px}
 .muted{color:var(--muted)}
-.card{border-radius:16px;background:var(--card);border:1px solid var(--line)}
-.p16{padding:16px}.p24{padding:24px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);min-height:220px}
+.card{border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-card)}
+.p16{padding:16px}.p24{padding:24px}.p32{padding:32px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.tile{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);min-height:220px;box-shadow:var(--sh-card)}
 .tile img{width:100%;height:100%;object-fit:cover;display:block}
 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.55))}
 .tile .cap{position:absolute;left:14px;bottom:12px;right:14px;display:flex;justify-content:space-between;gap:8px}
 .badge{font-size:12px;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--glass)}
 .timeline{position:relative;padding-left:18px}
 .timeline::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--line)}
-.step{position:relative;margin:14px 0;padding-left:12px}
+.step{position:relative;margin:16px 0;padding-left:12px}
 .step::before{content:"";position:absolute;left:-3px;top:8px;width:10px;height:10px;border-radius:999px;background:var(--pri)}
 input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#121b2b;color:var(--txt)}
 label{font-size:13px;color:var(--muted)}
@@ -84,6 +88,10 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 #toast{position:fixed;right:16px;bottom:16px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid var(--line);opacity:0;transform:translateY(10px);transition:.25s}
 #toast.show{opacity:1;transform:translateY(0)}
 
+/* Feature card (Carrière) plus grande et plus contrastée */
+.feature{background:linear-gradient(180deg,#1e2e4b,#16233a);box-shadow:var(--sh-raise);border:1px solid rgba(255,255,255,.22)}
+.feature h3{font-size:20px;margin:0 0 6px}
+
 /* VUES INTERNES */
 .page{display:none;padding:32px 0}
 .page .card{margin-top:14px}
@@ -92,13 +100,28 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 </head>
 <body>
 
+<!-- Marque flottante gauche -->
+<a class="floating-brand" href="#home" aria-label="Retour accueil">
+  <!-- Logo gradient -->
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <defs><linearGradient id="gradT" x1="4" y1="4" x2="20" y2="20"><stop stop-color="#6aa5ff"/><stop offset="1" stop-color="#7f53ac"/></linearGradient></defs>
+    <circle cx="12" cy="12" r="10" fill="url(#gradT)"/>
+    <rect x="7" y="9.2" width="10" height="2.2" rx="1.1" fill="#0b1020"/>
+    <rect x="12" y="9.2" width="2.2" height="8" rx="1.1" fill="#0b1020"/>
+  </svg>
+  <small>TAJDIN ACAR</small>
+</a>
+
 <header id="hdr">
-  <!-- MICROBAR -->
+  <!-- Bandeau supérieur -->
   <div id="microbar">
     <div class="container micro-wrap">
-      <a class="brand" href="#home">
+      <a class="brand" href="#home" aria-label="Accueil">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="url(#g)"/><defs><linearGradient id="g" x1="4" y1="4" x2="20" y2="20"><stop stop-color="#6aa5ff"/><stop offset="1" stop-color="#7f53ac"/></linearGradient></defs>
+          <defs><linearGradient id="g2" x1="4" y1="4" x2="20" y2="20"><stop stop-color="#6aa5ff"/><stop offset="1" stop-color="#7f53ac"/></linearGradient></defs>
+          <circle cx="12" cy="12" r="10" fill="url(#g2)"/>
+          <rect x="7" y="9.2" width="10" height="2.2" rx="1.1" fill="#0b1020"/>
+          <rect x="12" y="9.2" width="2.2" height="8" rx="1.1" fill="#0b1020"/>
         </svg>
         TAJDIN ACAR
       </a>
@@ -117,7 +140,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="bg">
-    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1920&auto=format&fit=crop" alt="Hero image">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1920&auto=format&fit=crop" alt="Hero">
   </div>
   <div class="container content">
     <h1 data-i18n="hero.title">Construire la valeur. Mesurer l'impact.</h1>
@@ -130,7 +153,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
   </div>
 </section>
 
-<!-- TABS collants (sous l'image) -->
+<!-- TABS collants toujours visibles -->
 <div class="tabs-bar" id="tabsBar">
   <div class="container tabs-shell">
     <nav class="tabs" id="tabsMenu">
@@ -150,7 +173,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
   <div class="container">
     <h2 data-i18n="sec.portfolio">Portfolio</h2>
     <p class="muted" data-i18n="sec.portfolioSub">Sélection : reporting, modèles de valo, design de KPI.</p>
-    <div class="grid-3" style="margin-top:12px">
+    <div class="grid-3" style="margin-top:14px">
       <a class="tile" href="#"><img loading="lazy" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" alt="Reporting"><div class="cap"><span><strong data-i18n="pf.reporting">Automatisation reporting</strong></span><span class="badge">FP&A</span></div></a>
       <a class="tile" href="#"><img loading="lazy" src="https://images.unsplash.com/photo-1554224155-3a589877462f?q=80&w=1200&auto=format&fit=crop" alt="DCF"><div class="cap"><span><strong data-i18n="pf.dcf">DCF & scénarios</strong></span><span class="badge">Valo</span></div></a>
       <a class="tile" href="#"><img loading="lazy" src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?q=80&w=1200&auto=format&fit=crop" alt="KPI"><div class="cap"><span><strong data-i18n="pf.kpi">Cadre KPI</strong></span><span class="badge">Perf</span></div></a>
@@ -162,24 +185,21 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
   <div class="container">
     <h2 data-i18n="sec.career">Carrière</h2>
     <p class="muted" data-i18n="sec.careerSub">Contrôle de gestion, finance d'entreprise, transformation.</p>
-    <div class="grid-2" style="margin-top:12px">
-      <div class="card p24">
-        <h3 data-i18n="career.path">Trajectoire</h3>
-        <div class="timeline">
-          <div class="step" data-i18n="career.s1"><strong>2025–2026</strong> · Master + alternance finance/contrôle. 3 cas majeurs.</div>
-          <div class="step" data-i18n="career.s2"><strong>2026–2027</strong> · VIE/CDI en finance. FP&A, performance, pricing.</div>
-          <div class="step" data-i18n="career.s3"><strong>2028+</strong> · Management, pilotage BU, trajectoire CFO.</div>
-        </div>
+    <!-- Feature card large -->
+    <div class="feature card p32" style="margin-top:14px">
+      <h3 data-i18n="career.path">Trajectoire</h3>
+      <div class="timeline">
+        <div class="step" data-i18n="career.s1"><strong>2025–2026</strong> · Master + alternance finance/contrôle. 3 cas majeurs.</div>
+        <div class="step" data-i18n="career.s2"><strong>2026–2027</strong> · VIE/CDI en finance. FP&A, performance, pricing.</div>
+        <div class="step" data-i18n="career.s3"><strong>2028+</strong> · Management, pilotage BU, trajectoire CFO.</div>
       </div>
-      <div class="card p24">
-        <h3 data-i18n="career.strengths">Points forts</h3>
-        <div class="row" style="margin-top:6px">
-          <span class="badge" data-i18n="st.reporting">Reporting & clôture</span>
-          <span class="badge">DCF/LBO</span>
-          <span class="badge" data-i18n="st.kpi">Design KPI</span>
-          <span class="badge">Power BI</span>
-          <span class="badge">Excel avancé</span>
-        </div>
+      <div style="height:10px"></div>
+      <div class="row">
+        <span class="badge" data-i18n="st.reporting">Reporting & clôture</span>
+        <span class="badge">DCF/LBO</span>
+        <span class="badge" data-i18n="st.kpi">Design KPI</span>
+        <span class="badge">Power BI</span>
+        <span class="badge">Excel avancé</span>
       </div>
     </div>
   </div>
@@ -188,7 +208,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 <section id="education">
   <div class="container">
     <h2 data-i18n="sec.education">Formation</h2>
-    <div class="grid-2" style="margin-top:12px">
+    <div class="grid-2" style="margin-top:14px">
       <div class="card p24">
         <h3 data-i18n="edu.path">Diplômes</h3>
         <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px">
@@ -219,7 +239,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 <section id="contact">
   <div class="container">
     <h2 data-i18n="sec.contact">Contact</h2>
-    <div class="grid-2" style="margin-top:12px">
+    <div class="grid-2" style="margin-top:14px">
       <div class="card p24">
         <p class="muted" data-i18n="contact.lead">Pour missions, échanges, ou collaborations.</p>
         <form id="contactForm">
@@ -244,7 +264,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 </section>
 
 <!-- VUES INTERNES -->
-<section id="cvPage" class="page">
+<section id="cv" class="page">
   <div class="container">
     <a href="#home" class="back" data-i18n="back.home">← Retour à l’accueil</a>
     <h2 data-i18n="cv.title">Curriculum vitæ</h2>
@@ -255,9 +275,6 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
     <div class="card p24"><h3 data-i18n="cv.edu">Formation</h3>
       <p><span class="badge">🎓</span><strong data-i18n="edu.m1">Master Finance & Contrôle</strong> — IAE Paris-Sorbonne (en cours)</p>
       <p><span class="badge">🏫</span><strong>Global BBA</strong> — ESSEC Business School</p>
-    </div>
-    <div class="card p24"><h3 data-i18n="cv.skills">Compétences</h3>
-      <p><span class="badge">FP&A</span><span class="badge">KPI & Budget</span><span class="badge">DCF/LBO</span><span class="badge">Power BI</span><span class="badge">Excel</span><span class="badge">Python</span></p>
     </div>
   </div>
 </section>
@@ -275,8 +292,8 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 
 <script>
 /* i18n */
-const I18N={fr:{"nav.cv":"CV","nav.articles":"Articles","nav.home":"Accueil","nav.portfolio":"Portfolio","nav.career":"Carrière","nav.education":"Formation","nav.contact":"Contact","hero.title":"Construire la valeur. Mesurer l'impact.","hero.lead":"Ce portfolio montre ce que je fais, ce que j'apprends et où je vais. Objectif : devenir un leader financier rigoureux, utile et proche du terrain.","hero.track":"🎯 Trajectoire : CFO","cta.contact":"Me contacter","cta.articles":"Lire les articles","sec.portfolio":"Portfolio","sec.portfolioSub":"Sélection : reporting, modèles de valo, design de KPI.","pf.reporting":"Automatisation reporting","pf.dcf":"DCF & scénarios","pf.kpi":"Cadre KPI","sec.career":"Carrière","sec.careerSub":"Contrôle de gestion, finance d'entreprise, transformation.","career.path":"Trajectoire","career.s1":"<strong>2025–2026</strong> · Master + alternance finance/contrôle. 3 cas majeurs.","career.s2":"<strong>2026–2027</strong> · VIE/CDI en finance. FP&A, performance, pricing.","career.s3":"<strong>2028+</strong> · Management, pilotage BU, trajectoire CFO.","career.strengths":"Points forts","st.reporting":"Reporting & clôture","st.kpi":"Design KPI","st.control":"Contrôle de gestion","sec.education":"Formation","edu.path":"Diplômes","edu.m1":"Master Finance & Contrôle","edu.skills":"Compétences clés","sec.articles":"Articles","sec.articlesSub":"Notes de travail et retours terrain.","sec.contact":"Contact","contact.lead":"Pour missions, échanges, ou collaborations.","contact.name":"Nom","contact.msg":"Message","contact.send":"Envoyer","contact.reset":"Annuler","contact.coord":"Coordonnées","cv.title":"Curriculum vitæ","cv.exp":"Expériences","cv.edu":"Formation","cv.skills":"Compétences","back.home":"← Retour à l’accueil"},
-en:{"nav.cv":"CV","nav.articles":"Articles","nav.home":"Home","nav.portfolio":"Portfolio","nav.career":"Career","nav.education":"Education","nav.contact":"Contact","hero.title":"Build value. Measure impact.","hero.lead":"This portfolio shows what I do, what I am learning, and where I am going. Goal: become a rigorous, useful, hands-on finance leader.","hero.track":"🎯 Track: CFO","cta.contact":"Contact me","cta.articles":"Read articles","sec.portfolio":"Portfolio","sec.portfolioSub":"Selected work: reporting, valuation models, KPI design.","pf.reporting":"Reporting automation","pf.dcf":"DCF & scenarios","pf.kpi":"KPI framework","sec.career":"Career","sec.careerSub":"Management control, corporate finance, transformation.","career.path":"Trajectory","career.s1":"<strong>2025–2026</strong> · Master + apprenticeship in finance/controlling. 3 major cases.","career.s2":"<strong>2026–2027</strong> · VIE/FT in finance. FP&A, performance, pricing.","career.s3":"<strong>2028+</strong> · Management, BU steering, CFO track.","career.strengths":"Strengths","st.reporting":"Reporting & close","st.kpi":"KPI design","st.control":"Management control","sec.education":"Education","edu.path":"Degrees","edu.m1":"Master in Finance & Controlling","edu.skills":"Core skills","sec.articles":"Articles","sec.articlesSub":"Working notes and field feedback.","sec.contact":"Contact","contact.lead":"For projects, conversations, or collaborations.","contact.name":"Name","contact.msg":"Message","contact.send":"Send","contact.reset":"Reset","contact.coord":"Coordinates","cv.title":"Curriculum Vitae","cv.exp":"Experience","cv.edu":"Education","cv.skills":"Skills","back.home":"← Back to home"}};
+const I18N={fr:{"nav.cv":"CV","nav.articles":"Articles","nav.home":"Accueil","nav.portfolio":"Portfolio","nav.career":"Carrière","nav.education":"Formation","nav.contact":"Contact","hero.title":"Construire la valeur. Mesurer l'impact.","hero.lead":"Ce portfolio montre ce que je fais, ce que j'apprends et où je vais. Objectif : devenir un leader financier rigoureux, utile et proche du terrain.","hero.track":"🎯 Trajectoire : CFO","sec.portfolio":"Portfolio","sec.portfolioSub":"Sélection : reporting, modèles de valo, design de KPI.","pf.reporting":"Automatisation reporting","pf.dcf":"DCF & scénarios","pf.kpi":"Cadre KPI","sec.career":"Carrière","sec.careerSub":"Contrôle de gestion, finance d'entreprise, transformation.","career.path":"Trajectoire","career.s1":"<strong>2025–2026</strong> · Master + alternance finance/contrôle. 3 cas majeurs.","career.s2":"<strong>2026–2027</strong> · VIE/CDI en finance. FP&A, performance, pricing.","career.s3":"<strong>2028+</strong> · Management, pilotage BU, trajectoire CFO.","st.reporting":"Reporting & clôture","st.kpi":"Design KPI","st.control":"Contrôle de gestion","sec.education":"Formation","edu.path":"Diplômes","edu.m1":"Master Finance & Contrôle","edu.skills":"Compétences clés","sec.articles":"Articles","sec.articlesSub":"Notes de travail et retours terrain.","sec.contact":"Contact","contact.lead":"Pour missions, échanges, ou collaborations.","contact.name":"Nom","contact.msg":"Message","contact.send":"Envoyer","contact.reset":"Annuler","contact.coord":"Coordonnées","cv.title":"Curriculum vitæ","cv.exp":"Expériences","cv.edu":"Formation","back.home":"← Retour à l’accueil"},
+en:{"nav.cv":"CV","nav.articles":"Articles","nav.home":"Home","nav.portfolio":"Portfolio","nav.career":"Career","nav.education":"Education","nav.contact":"Contact","hero.title":"Build value. Measure impact.","hero.lead":"This portfolio shows what I do, what I am learning, and where I am going. Goal: become a rigorous, useful, hands-on finance leader.","hero.track":"🎯 Track: CFO","sec.portfolio":"Portfolio","sec.portfolioSub":"Selected work: reporting, valuation models, KPI design.","pf.reporting":"Reporting automation","pf.dcf":"DCF & scenarios","pf.kpi":"KPI framework","sec.career":"Career","sec.careerSub":"Management control, corporate finance, transformation.","career.path":"Trajectory","career.s1":"<strong>2025–2026</strong> · Master + apprenticeship in finance/controlling.","career.s2":"<strong>2026–2027</strong> · VIE/FT in finance. FP&A, performance, pricing.","career.s3":"<strong>2028+</strong> · Management, BU steering, CFO track.","st.reporting":"Reporting & close","st.kpi":"KPI design","st.control":"Management control","sec.education":"Education","edu.path":"Degrees","edu.m1":"Master in Finance & Controlling","edu.skills":"Core skills","sec.articles":"Articles","sec.articlesSub":"Working notes and field feedback.","sec.contact":"Contact","contact.lead":"For projects, conversations, or collaborations.","contact.name":"Name","contact.msg":"Message","contact.send":"Send","contact.reset":"Reset","contact.coord":"Coordinates","cv.title":"Curriculum Vitae","cv.exp":"Experience","cv.edu":"Education","back.home":"← Back to home"}};
 let LANG=localStorage.getItem('LANG')||'fr';
 function tr(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); el.innerHTML=I18N[LANG][k]||el.innerHTML;}); document.documentElement.lang=LANG;}
 document.getElementById('btnFR').onclick=()=>{LANG='fr';localStorage.setItem('LANG',LANG);tr();renderPosts();renderArticlesPage();}
@@ -298,24 +315,23 @@ const tabsMenu=document.getElementById('tabsMenu'), tabsInd=document.getElementB
 const tabs=[...tabsMenu.querySelectorAll('.t')];
 const secs=['home','portfolio','career','education','articlesSection','contact'].map(id=>document.getElementById(id));
 function moveInd(el){const pr=tabsMenu.getBoundingClientRect(), r=el.getBoundingClientRect(); tabsInd.style.width=r.width+'px'; tabsInd.style.transform=`translateX(${r.left-pr.left}px)`;}
-function setActive(id){const el=tabs.find(a=>a.dataset.id===id)||tabs[0]; moveInd(el);}
+function setActive(id){moveInd(tabs.find(a=>a.dataset.id===id)||tabs[0]);}
 function onScroll(){
   // cacher microbar après défilement
   document.getElementById('hdr').classList.toggle('hide-micro', window.scrollY>140 || document.body.classList.contains('page-mode'));
   if(document.body.classList.contains('page-mode')) return;
   const y=window.scrollY+140; let cur=secs[0].id; for(const s of secs){if(s.offsetTop<=y) cur=s.id;} setActive(cur);
 }
-tabs.forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); const id=a.getAttribute('href').slice(1); const el=document.getElementById(id); const top=el.getBoundingClientRect().top+window.scrollY-82; window.scrollTo({top,behavior:'smooth'});} ));
+tabs.forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); const id=a.getAttribute('href').slice(1); const el=document.getElementById(id); const top=el.getBoundingClientRect().top+window.scrollY-86; window.scrollTo({top,behavior:'smooth'});} ));
 
 /* routing: #cv / #articles => vues internes */
 function route(){
   const h=(location.hash||'#home').replace('#','');
   const isPage=(h==='cv'||h==='articles');
   document.body.classList.toggle('page-mode', isPage);
-  // sections visibles si pas page
   ['home','tabsBar','portfolio','career','education','articlesSection','contact'].forEach(id=>{
     const n=document.getElementById(id); if(!n) return; n.style.display=isPage?'none':'';});
-  document.getElementById('cvPage').style.display = h==='cv'?'block':'none';
+  document.getElementById('cv').style.display = h==='cv'?'block':'none';
   document.getElementById('articles').style.display = h==='articles'?'block':'none';
   if(h==='articles') renderArticlesPage();
   window.scrollTo({top:0});
