@@ -82,7 +82,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
 </head>
 <body>
 <header id="hdr">
-  <!-- Topbar : drapeaux à gauche, liens centrés -->
+  <!-- Topbar : 🇫🇷/🇬🇧 à gauche, CV | Articles centrés -->
   <div id="topbar" class="bar">
     <div class="container" style="display:flex;align-items:center;width:100%">
       <div class="lang-left">
@@ -90,9 +90,9 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
         <button id="btnEN" class="lang-link"><span class="flag">🇬🇧</span>EN</button>
       </div>
       <nav class="top-links">
-        <!-- ouvrent un nouvel onglet mais c'est le même fichier -->
-        <a class="top-link" href="?p=cv" target="_blank" rel="noopener" data-i18n="nav.cv">CV</a>
-        <a class="top-link" href="?p=articles" target="_blank" rel="noopener" data-i18n="nav.articles">Articles</a>
+        <!-- ouvrent un nouvel onglet, même fichier avec # -->
+        <a class="top-link" href="index.html#cv" target="_blank" rel="noopener" data-i18n="nav.cv">CV</a>
+        <a class="top-link" href="index.html#articles" target="_blank" rel="noopener" data-i18n="nav.articles">Articles</a>
       </nav>
     </div>
   </div>
@@ -106,7 +106,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
         <a class="tab" href="#portfolio" data-id="portfolio" data-i18n="nav.portfolio">Portfolio</a>
         <a class="tab" href="#career"    data-id="career"    data-i18n="nav.career">Career</a>
         <a class="tab" href="#education" data-id="education" data-i18n="nav.education">Education</a>
-        <a class="tab" href="#articles"  data-id="articles"  data-i18n="nav.articles">Articles</a>
+        <a class="tab" href="#articlesSection" data-id="articlesSection" data-i18n="nav.articles">Articles</a>
         <a class="tab" href="#contact"   data-id="contact"   data-i18n="nav.contact">Contact</a>
         <span class="indicator" id="indicator"></span>
       </nav>
@@ -114,7 +114,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
   </div>
 </header>
 
-<!-- ==== HOME MODE ==== -->
+<!-- ==== HOME ==== -->
 <section class="hero" id="home">
   <div class="bg">
     <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1920&auto=format&fit=crop" alt="Aesthetic dunes">
@@ -129,7 +129,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
     </div>
     <div class="row" style="margin-top:16px">
       <a class="btn" href="#contact"  data-i18n="cta.contact">Contact me</a>
-      <a class="btn alt" href="#articles" data-i18n="cta.articles">Read articles</a>
+      <a class="btn alt" href="#articlesSection" data-i18n="cta.articles">Read articles</a>
     </div>
   </div>
 </section>
@@ -196,7 +196,7 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
   </div>
 </section>
 
-<section id="articles">
+<section id="articlesSection">
   <div class="container">
     <h2 data-i18n="sec.articles">Articles</h2>
     <p class="muted" data-i18n="sec.articlesSub">Working notes and field feedback.</p>
@@ -231,26 +231,21 @@ footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
   </div>
 </section>
 
-<!-- ==== PAGE MODE (même fichier) ==== -->
+<!-- ==== PAGES (même fichier) ==== -->
 <section id="cvPage" class="page">
   <div class="container">
     <a href="index.html" class="back" data-i18n="back.home">← Back to home</a>
     <h2 data-i18n="cv.title">Curriculum Vitae</h2>
     <p class="muted">Email: <a href="mailto:tajdinacar@icloud.com">tajdinacar@icloud.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank">Tajdin Acar</a></p>
-    <div class="card p24">
-      <h3 data-i18n="cv.exp">Experience</h3>
-      <ul>
-        <li><strong>FP&A / Controlling</strong> — reporting, budget, variance, automation.</li>
-        <li><strong>Valuation</strong> — DCF, scenarios, capital allocation.</li>
-      </ul>
-    </div>
-    <div class="card p24">
-      <h3 data-i18n="cv.edu">Education</h3>
+    <div class="card p24"><h3 data-i18n="cv.exp">Experience</h3><ul>
+      <li><strong>FP&A / Controlling</strong> — reporting, budget, variance, automation.</li>
+      <li><strong>Valuation</strong> — DCF, scenarios, capital allocation.</li>
+    </ul></div>
+    <div class="card p24"><h3 data-i18n="cv.edu">Education</h3>
       <p><span class="badge">🎓</span><strong data-i18n="edu.m1">Master in Finance & Controlling</strong> — IAE Paris-Sorbonne (ongoing)</p>
       <p><span class="badge">🏫</span><strong>Global BBA</strong> — ESSEC Business School</p>
     </div>
-    <div class="card p24">
-      <h3 data-i18n="cv.skills">Skills</h3>
+    <div class="card p24"><h3 data-i18n="cv.skills">Skills</h3>
       <p><span class="badge">FP&A</span><span class="badge">KPI & Budget</span><span class="badge">DCF/LBO</span><span class="badge">Power BI</span><span class="badge">Excel</span><span class="badge">Python</span></p>
     </div>
   </div>
@@ -291,12 +286,7 @@ fr:{
 "cv.title":"Curriculum vitæ","cv.exp":"Expériences","cv.edu":"Formation","cv.skills":"Compétences","back.home":"← Retour à l’accueil"
 }};
 let LANG=localStorage.getItem('LANG')||'en';
-function applyI18n(){
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const k=el.getAttribute('data-i18n'); el.innerHTML = I18N[LANG][k] || el.innerHTML;
-  });
-  document.documentElement.lang=LANG;
-}
+function applyI18n(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); el.innerHTML=I18N[LANG][k]||el.innerHTML;}); document.documentElement.lang=LANG;}
 
 /* posts */
 const postsData=[
@@ -326,13 +316,13 @@ function renderArticlesPage(q=""){
   }).join('');
 }
 
-/* header fullbar + indicator */
+/* fullbar + indicator */
 const hdr=document.getElementById('hdr'), menu=document.getElementById('menu');
 const tabs=Array.from(menu.querySelectorAll('.tab')), indicator=document.getElementById('indicator');
-const sections=['home','portfolio','career','education','articles','contact'].map(id=>document.getElementById(id));
+const sections=['home','portfolio','career','education','articlesSection','contact'].map(id=>document.getElementById(id));
 function moveIndicator(el){const pr=menu.getBoundingClientRect(), r=el.getBoundingClientRect(); indicator.style.width=r.width+'px'; indicator.style.transform=`translateX(${r.left-pr.left}px)`;}
 function setActive(id){tabs.forEach(a=>a.classList.toggle('active',a.dataset.id===id)); const el=tabs.find(a=>a.dataset.id===id); if(el) moveIndicator(el);}
-function onScroll(){const y=window.scrollY+140; let cur=sections[0].id; for(const s of sections){if(s.offsetTop<=y) cur=s.id;} setActive(cur); hdr.classList.toggle('show-full', window.scrollY>180);}
+function onScroll(){if(document.body.classList.contains('page-mode')) return; const y=window.scrollY+140; let cur=sections[0].id; for(const s of sections){if(s.offsetTop<=y) cur=s.id;} setActive(cur); hdr.classList.toggle('show-full', window.scrollY>180);}
 tabs.forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); const id=a.getAttribute('href').slice(1); const el=document.getElementById(id); const top=el.getBoundingClientRect().top+window.scrollY-80; window.scrollTo({top,behavior:'smooth'});} ));
 
 /* contact */
@@ -340,34 +330,40 @@ document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDe
 function toast(msg){const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200)}
 function copy(text){navigator.clipboard.writeText(text); toast(LANG==='en'?'Copied':'Copié')}
 
-/* language buttons */
+/* language */
 document.getElementById('btnFR').onclick=()=>{LANG='fr';localStorage.setItem('LANG',LANG);applyI18n();renderPosts();renderArticlesPage(document.getElementById('q')?.value||"")};
 document.getElementById('btnEN').onclick=()=>{LANG='en';localStorage.setItem('LANG',LANG);applyI18n();renderPosts();renderArticlesPage(document.getElementById('q')?.value||"")};
 
-/* page-mode routing (same file) */
-function getParam(name){const u=new URL(location.href); return u.searchParams.get(name);}
+/* routing par hash */
+function route(){
+  const h=(location.hash||'').replace('#','');
+  if(h==='cv'||h==='articles'){
+    enterPageMode(h);
+  }else{
+    enterHomeMode();
+  }
+}
 function enterPageMode(which){
-  document.body.classList.add('page-mode'); hdr.classList.remove('show-full');
-  // cache home sections
-  ['home','portfolio','career','education','articles','contact'].forEach(id=>document.getElementById(id).style.display='none');
-  document.getElementById('topbar').style.display='flex';
-  if(which==='cv'){ document.getElementById('cvPage').style.display='block'; }
-  if(which==='articles'){ document.getElementById('articlesPage').style.display='block'; renderArticlesPage(); const q=document.getElementById('q'); q.oninput=(e)=>renderArticlesPage(e.target.value); }
+  document.body.classList.add('page-mode');
+  ['home','portfolio','career','education','articlesSection','contact'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('cvPage').style.display = (which==='cv')?'block':'none';
+  document.getElementById('articlesPage').style.display = (which==='articles')?'block':'none';
+  const q=document.getElementById('q'); if(q){ q.oninput=(e)=>renderArticlesPage(e.target.value); renderArticlesPage(); }
+  window.scrollTo({top:0});
 }
 function enterHomeMode(){
   document.body.classList.remove('page-mode');
-  ['home','portfolio','career','education','articles','contact'].forEach(id=>document.getElementById(id).style.display='');
+  ['home','portfolio','career','education','articlesSection','contact'].forEach(id=>document.getElementById(id).style.display='');
   document.getElementById('cvPage').style.display='none';
   document.getElementById('articlesPage').style.display='none';
+  onScroll();
 }
 
 /* init */
 document.getElementById('year').textContent=new Date().getFullYear();
 window.addEventListener('scroll', onScroll);
-window.addEventListener('load', ()=>{
-  applyI18n(); renderPosts(); onScroll(); moveIndicator(tabs[0]);
-  const p=getParam('p'); if(p==='cv'||p==='articles') enterPageMode(p); else enterHomeMode();
-});
+window.addEventListener('hashchange', route);
+window.addEventListener('load', ()=>{applyI18n();renderPosts();route();moveIndicator(tabs[0]);});
 </script>
 </body>
 </html>
