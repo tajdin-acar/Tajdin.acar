@@ -1,56 +1,373 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tajdin · CV</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tajdin · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0f14;--txt:#e7eef7;--muted:#aab7c7;--line:rgba(255,255,255,.14);--card:#111824}
-*{box-sizing:border-box} body{margin:0;background:#0b0f14;color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-.container{max-width:900px;margin:0 auto;padding:24px}
-.header{display:flex;align-items:center;gap:12px;justify-content:space-between}
-.lang{display:flex;gap:8px} .lang button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:#1a2332;color:#eaeff7;cursor:pointer}
-h1{margin:10px 0 0} .muted{color:var(--muted)}
-.card{border-radius:14px;background:var(--card);border:1px solid var(--line);padding:18px;margin-top:14px}
-.badge{font-size:12px;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:#1a2332;margin-right:6px}
-a{color:#67a2ff;text-decoration:none}
-</style></head><body>
-<div class="container">
-  <div class="header">
-    <div><a href="index.html" style="text-decoration:underline">← Home</a></div>
-    <div class="lang">
-      <button id="fr">🇫🇷 FR</button><button id="en">🇬🇧 EN</button>
+:root{--bg:#0b0f14;--txt:#e7eef7;--muted:#aab7c7;--pri:#2f80ed;--line:rgba(255,255,255,.14);--card:#111824;--glass:rgba(255,255,255,.06)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:radial-gradient(1200px 700px at 10% 0%,#0f1622,#0b0f14 70%);scroll-behavior:smooth}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:70}
+.bar{height:70px;display:flex;align-items:center;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+#topbar{background:rgba(11,15,20,.55)}
+#fullbar{display:none;background:rgba(11,15,20,.92)}
+header.show-full #topbar{display:none}
+header.show-full #fullbar{display:flex}
+
+.lang-left{display:flex;gap:10px;align-items:center}
+.lang-link{padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.28);background:#1b2433;color:#eef3fb;cursor:pointer}
+.flag{font-size:16px;margin-right:6px}
+.top-links{margin:0 auto;display:flex;gap:28px;align-items:center;justify-content:center}
+.top-link{font-weight:700;letter-spacing:.2px;opacity:.95}
+.top-link:hover{opacity:1;text-decoration:underline}
+
+/* full menu */
+.menu{position:relative;display:flex;gap:12px;align-items:center;margin-left:auto}
+.tab{position:relative;padding:10px 14px;border-radius:12px}
+.tab:hover{background:var(--glass);border:1px solid var(--line)}
+.indicator{position:absolute;height:3px;bottom:6px;border-radius:999px;background:linear-gradient(90deg,#6aa5ff,#7f53ac);transition:transform .28s ease,width .28s ease,opacity .28s;opacity:.7}
+
+/* HERO */
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end}
+.hero .bg{position:absolute;inset:0;overflow:hidden}
+.hero img{width:100%;height:110%;object-fit:cover;transform:translateY(-2%);filter:saturate(104%) contrast(107%)}
+.hero .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 40% 20%,rgba(0,0,0,.2),rgba(0,0,0,.56) 60%, rgba(0,0,0,.85))}
+.hero .content{position:relative;padding:56px 0 74px}
+h1{font-size:56px;line-height:1.05;margin:0 0 10px}
+.lead{color:var(--muted);font-size:18px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.chip{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--pri);color:#fff;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
+.btn.alt{background:transparent;border:1px solid var(--line)}
+
+section{padding:64px 0}
+h2{font-size:28px;margin:0 0 8px}
+.muted{color:var(--muted)}
+.card{border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.p16{padding:16px}.p24{padding:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);min-height:220px}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65))}
+.tile .cap{position:absolute;left:14px;bottom:12px;right:14px;display:flex;justify-content:space-between;gap:8px}
+.badge{font-size:12px;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--glass)}
+.timeline{position:relative;padding-left:18px}
+.timeline::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--line)}
+.step{position:relative;margin:14px 0;padding-left:12px}
+.step::before{content:"";position:absolute;left:-3px;top:8px;width:10px;height:10px;border-radius:999px;background:var(--pri)}
+input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0e141c;color:var(--txt)}
+label{font-size:13px;color:var(--muted)}
+footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--line)}
+@media (max-width:1000px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){h1{font-size:38px}.grid-3,.grid-2{grid-template-columns:1fr}}
+#toast{position:fixed;right:16px;bottom:16px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid var(--line);opacity:0;transform:translateY(10px);transition:.25s}
+#toast.show{opacity:1;transform:translateY(0)}
+
+/* Page-mode (CV / Articles) */
+.page{display:none;padding:32px 0}
+.page .card{margin-top:14px}
+.page .back{margin-bottom:12px;display:inline-block;text-decoration:underline}
+.page-mode header.show-full #fullbar{display:none}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <!-- Topbar : drapeaux à gauche, liens centrés -->
+  <div id="topbar" class="bar">
+    <div class="container" style="display:flex;align-items:center;width:100%">
+      <div class="lang-left">
+        <button id="btnFR" class="lang-link"><span class="flag">🇫🇷</span>FR</button>
+        <button id="btnEN" class="lang-link"><span class="flag">🇬🇧</span>EN</button>
+      </div>
+      <nav class="top-links">
+        <!-- ouvrent un nouvel onglet mais c'est le même fichier -->
+        <a class="top-link" href="?p=cv" target="_blank" rel="noopener" data-i18n="nav.cv">CV</a>
+        <a class="top-link" href="?p=articles" target="_blank" rel="noopener" data-i18n="nav.articles">Articles</a>
+      </nav>
     </div>
   </div>
-  <h1 id="t">Curriculum Vitae</h1>
-  <p class="muted">Email: <a href="mailto:tajdinacar@icloud.com">tajdinacar@icloud.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank">Tajdin Acar</a></p>
 
-  <div class="card">
-    <h3 id="exp">Experience</h3>
-    <ul>
-      <li><strong>FP&A / Controlling</strong> — reporting, budget, variance, automation.</li>
-      <li><strong>Valuation</strong> — DCF, scenarios, capital allocation.</li>
-    </ul>
+  <!-- Fullbar : apparaît au scroll -->
+  <div id="fullbar" class="bar">
+    <div class="container" style="display:flex;align-items:center;width:100%">
+      <div class="brand"><strong>Tajdin · Finance & Strategy</strong></div>
+      <nav class="menu" id="menu">
+        <a class="tab" href="#home"      data-id="home"      data-i18n="nav.home">Home</a>
+        <a class="tab" href="#portfolio" data-id="portfolio" data-i18n="nav.portfolio">Portfolio</a>
+        <a class="tab" href="#career"    data-id="career"    data-i18n="nav.career">Career</a>
+        <a class="tab" href="#education" data-id="education" data-i18n="nav.education">Education</a>
+        <a class="tab" href="#articles"  data-id="articles"  data-i18n="nav.articles">Articles</a>
+        <a class="tab" href="#contact"   data-id="contact"   data-i18n="nav.contact">Contact</a>
+        <span class="indicator" id="indicator"></span>
+      </nav>
+    </div>
   </div>
+</header>
 
-  <div class="card">
-    <h3 id="edu">Education</h3>
-    <p><span class="badge">🎓</span><strong id="m1">Master in Finance & Controlling</strong> — IAE Paris-Sorbonne (ongoing)</p>
-    <p><span class="badge">🏫</span><strong>Global BBA</strong> — ESSEC Business School</p>
+<!-- ==== HOME MODE ==== -->
+<section class="hero" id="home">
+  <div class="bg">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1920&auto=format&fit=crop" alt="Aesthetic dunes">
   </div>
+  <div class="container content">
+    <h1 data-i18n="hero.title">Build value. Measure impact.</h1>
+    <p class="lead" data-i18n="hero.lead">This portfolio shows what I do, what I am learning, and where I am going. Goal: become a rigorous, useful, hands-on finance leader.</p>
+    <div class="chips">
+      <span class="chip">📍 Paris</span>
+      <span class="chip" data-i18n="hero.track">🎯 Track: CFO</span>
+      <span class="chip">📊 FP&A · KPI · DCF</span>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <a class="btn" href="#contact"  data-i18n="cta.contact">Contact me</a>
+      <a class="btn alt" href="#articles" data-i18n="cta.articles">Read articles</a>
+    </div>
+  </div>
+</section>
 
-  <div class="card">
-    <h3 id="skills">Skills</h3>
-    <p><span class="badge">FP&A</span><span class="badge">KPI & Budget</span><span class="badge">DCF/LBO</span><span class="badge">Power BI</span><span class="badge">Excel</span><span class="badge">Python</span></p>
+<section id="portfolio">
+  <div class="container">
+    <h2 data-i18n="sec.portfolio">Portfolio</h2>
+    <p class="muted" data-i18n="sec.portfolioSub">Selected work: reporting, valuation models, KPI design.</p>
+    <div class="grid-3" style="margin-top:12px">
+      <a class="tile" href="#"><img loading="lazy" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" alt="Reporting"><div class="cap"><span><strong data-i18n="pf.reporting">Reporting automation</strong></span><span class="badge">FP&A</span></div></a>
+      <a class="tile" href="#"><img loading="lazy" src="https://images.unsplash.com/photo-1554224155-3a589877462f?q=80&w=1200&auto=format&fit=crop" alt="DCF"><div class="cap"><span><strong data-i18n="pf.dcf">DCF & scenarios</strong></span><span class="badge">Valuation</span></div></a>
+      <a class="tile" href="#"><img loading="lazy" src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?q=80&w=1200&auto=format&fit=crop" alt="KPI"><div class="cap"><span><strong data-i18n="pf.kpi">KPI framework</strong></span><span class="badge">Performance</span></div></a>
+    </div>
   </div>
+</section>
 
-  <div class="card">
-    <a href="cv.pdf" target="_blank">Download PDF</a>
+<section id="career">
+  <div class="container">
+    <h2 data-i18n="sec.career">Career</h2>
+    <p class="muted" data-i18n="sec.careerSub">Management control, corporate finance, transformation.</p>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="card p24">
+        <h3 data-i18n="career.path">Trajectory</h3>
+        <div class="timeline">
+          <div class="step" data-i18n="career.s1"><strong>2025–2026</strong> · Master + apprenticeship in finance/controlling. Three major cases. Solid tools.</div>
+          <div class="step" data-i18n="career.s2"><strong>2026–2027</strong> · VIE or full-time in finance. FP&A, performance, pricing.</div>
+          <div class="step" data-i18n="career.s3"><strong>2028+</strong> · Management, BU steering, CFO track.</div>
+        </div>
+      </div>
+      <div class="card p24">
+        <h3 data-i18n="career.strengths">Strengths</h3>
+        <div class="row" style="margin-top:6px">
+          <span class="badge" data-i18n="st.reporting">Reporting & close</span>
+          <span class="badge">DCF/LBO</span>
+          <span class="badge" data-i18n="st.kpi">KPI design</span>
+          <span class="badge">Power BI</span>
+          <span class="badge">Advanced Excel</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <h2 data-i18n="sec.education">Education</h2>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="card p24">
+        <h3 data-i18n="edu.path">Degrees</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px">
+          <li><div class="row"><div class="badge">🎓</div><div><strong data-i18n="edu.m1">Master in Finance & Controlling</strong><div class="muted">IAE Paris-Sorbonne · in progress</div></div></div></li>
+          <li><div class="row"><div class="badge">🏫</div><div><strong>Global BBA</strong><div class="muted">ESSEC Business School</div></div></div></li>
+        </ul>
+      </div>
+      <div class="card p24">
+        <h3 data-i18n="edu.skills">Core skills</h3>
+        <div class="row" style="margin-top:6px">
+          <span class="badge">FP&A</span><span class="badge" data-i18n="st.control">Management control</span>
+          <span class="badge">DCF/LBO</span><span class="badge">KPI & Budget</span>
+          <span class="badge">Power BI</span><span class="badge">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="articles">
+  <div class="container">
+    <h2 data-i18n="sec.articles">Articles</h2>
+    <p class="muted" data-i18n="sec.articlesSub">Working notes and field feedback.</p>
+    <div id="posts" style="display:grid;gap:12px;margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2 data-i18n="sec.contact">Contact</h2>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="card p24">
+        <p class="muted" data-i18n="contact.lead">For projects, conversations, or collaborations.</p>
+        <form id="contactForm">
+          <label data-i18n="contact.name">Name<input name="name" required placeholder="Your name"></label>
+          <div style="height:8px"></div>
+          <label>Email<input type="email" name="email" required placeholder="you@example.com"></label>
+          <div style="height:8px"></div>
+          <label data-i18n="contact.msg">Message<textarea name="message" rows="6" required placeholder="Your message"></textarea></label>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" type="submit" data-i18n="contact.send">Send</button>
+            <button class="btn alt" type="reset" data-i18n="contact.reset">Reset</button>
+          </div>
+        </form>
+      </div>
+      <div class="card p24">
+        <h3 data-i18n="contact.coord">Coordinates</h3>
+        <p class="muted">Email: <a href="#" onclick="copy('tajdinacar@icloud.com')">tajdinacar@icloud.com</a></p>
+        <p class="muted">LinkedIn: <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank" rel="noopener">Tajdin Acar</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== PAGE MODE (même fichier) ==== -->
+<section id="cvPage" class="page">
+  <div class="container">
+    <a href="index.html" class="back" data-i18n="back.home">← Back to home</a>
+    <h2 data-i18n="cv.title">Curriculum Vitae</h2>
+    <p class="muted">Email: <a href="mailto:tajdinacar@icloud.com">tajdinacar@icloud.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/tajdin-acar-600872226/" target="_blank">Tajdin Acar</a></p>
+    <div class="card p24">
+      <h3 data-i18n="cv.exp">Experience</h3>
+      <ul>
+        <li><strong>FP&A / Controlling</strong> — reporting, budget, variance, automation.</li>
+        <li><strong>Valuation</strong> — DCF, scenarios, capital allocation.</li>
+      </ul>
+    </div>
+    <div class="card p24">
+      <h3 data-i18n="cv.edu">Education</h3>
+      <p><span class="badge">🎓</span><strong data-i18n="edu.m1">Master in Finance & Controlling</strong> — IAE Paris-Sorbonne (ongoing)</p>
+      <p><span class="badge">🏫</span><strong>Global BBA</strong> — ESSEC Business School</p>
+    </div>
+    <div class="card p24">
+      <h3 data-i18n="cv.skills">Skills</h3>
+      <p><span class="badge">FP&A</span><span class="badge">KPI & Budget</span><span class="badge">DCF/LBO</span><span class="badge">Power BI</span><span class="badge">Excel</span><span class="badge">Python</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="articlesPage" class="page">
+  <div class="container">
+    <a href="index.html" class="back" data-i18n="back.home">← Back to home</a>
+    <h2 data-i18n="sec.articles">Articles</h2>
+    <div class="card p16"><input id="q" placeholder="Filter by text..." style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0e141c;color:var(--txt)"></div>
+    <div id="list"></div>
+  </div>
+</section>
+
+<footer><div class="container">© <span id="year"></span> Tajdin · GitHub Pages. No cookies.</div></footer>
+<div id="toast">Copied</div>
+
 <script>
-const T={en:{t:"Curriculum Vitae",exp:"Experience",edu:"Education",m1:"Master in Finance & Controlling",skills:"Skills"},
-         fr:{t:"Curriculum vitæ",exp:"Expériences",edu:"Formation",m1:"Master Finance & Contrôle",skills:"Compétences"}};
-function set(lang){document.documentElement.lang=lang;
-  for(const [k,v] of Object.entries(T[lang])) document.getElementById(k).textContent=v;}
-document.getElementById('fr').onclick=()=>set('fr'); document.getElementById('en').onclick=()=>set('en'); set((localStorage.getItem('LANG')||'en'));
+/* i18n */
+const I18N={en:{
+"nav.cv":"CV","nav.articles":"Articles","nav.home":"Home","nav.portfolio":"Portfolio","nav.career":"Career","nav.education":"Education","nav.contact":"Contact",
+"hero.title":"Build value. Measure impact.","hero.lead":"This portfolio shows what I do, what I am learning, and where I am going. Goal: become a rigorous, useful, hands-on finance leader.","hero.track":"🎯 Track: CFO",
+"cta.contact":"Contact me","cta.articles":"Read articles","sec.portfolio":"Portfolio","sec.portfolioSub":"Selected work: reporting, valuation models, KPI design.",
+"pf.reporting":"Reporting automation","pf.dcf":"DCF & scenarios","pf.kpi":"KPI framework","sec.career":"Career","sec.careerSub":"Management control, corporate finance, transformation.","career.path":"Trajectory",
+"career.s1":"<strong>2025–2026</strong> · Master + apprenticeship in finance/controlling. Three major cases. Solid tools.","career.s2":"<strong>2026–2027</strong> · VIE or full-time in finance. FP&A, performance, pricing.","career.s3":"<strong>2028+</strong> · Management, BU steering, CFO track.","career.strengths":"Strengths",
+"st.reporting":"Reporting & close","st.kpi":"KPI design","st.control":"Management control","sec.education":"Education","edu.path":"Degrees","edu.m1":"Master in Finance & Controlling","edu.skills":"Core skills",
+"sec.articles":"Articles","sec.articlesSub":"Working notes and field feedback.","sec.contact":"Contact","contact.lead":"For projects, conversations, or collaborations.","contact.name":"Name","contact.msg":"Message","contact.send":"Send","contact.reset":"Reset","contact.coord":"Coordinates",
+"cv.title":"Curriculum Vitae","cv.exp":"Experience","cv.edu":"Education","cv.skills":"Skills","back.home":"← Back to home"
+},
+fr:{
+"nav.cv":"CV","nav.articles":"Articles","nav.home":"Accueil","nav.portfolio":"Portfolio","nav.career":"Carrière","nav.education":"Formation","nav.contact":"Contact",
+"hero.title":"Construire la valeur. Mesurer l'impact.","hero.lead":"Ce portfolio montre ce que je fais, ce que j'apprends et où je vais. Objectif : devenir un leader financier rigoureux, utile et proche du terrain.","hero.track":"🎯 Trajectoire : CFO",
+"cta.contact":"Me contacter","cta.articles":"Lire les articles","sec.portfolio":"Portfolio","sec.portfolioSub":"Sélection : reporting, modèles de valo, design de KPI.",
+"pf.reporting":"Automatisation reporting","pf.dcf":"DCF & scénarios","pf.kpi":"Cadre KPI","sec.career":"Carrière","sec.careerSub":"Contrôle de gestion, finance d'entreprise, transformation.","career.path":"Trajectoire",
+"career.s1":"<strong>2025–2026</strong> · Master + alternance en finance/contrôle. 3 cas majeurs. Outils solides.","career.s2":"<strong>2026–2027</strong> · VIE ou CDI en finance. FP&A, performance, pricing.","career.s3":"<strong>2028+</strong> · Management, pilotage BU, trajectoire CFO.","career.strengths":"Points forts",
+"st.reporting":"Reporting & clôture","st.kpi":"Design KPI","st.control":"Contrôle de gestion","sec.education":"Formation","edu.path":"Diplômes","edu.m1":"Master Finance & Contrôle","edu.skills":"Compétences clés",
+"sec.articles":"Articles","sec.articlesSub":"Notes de travail et retours terrain.","sec.contact":"Contact","contact.lead":"Pour missions, échanges ou collaborations.","contact.name":"Nom","contact.msg":"Message","contact.send":"Envoyer","contact.reset":"Annuler","contact.coord":"Coordonnées",
+"cv.title":"Curriculum vitæ","cv.exp":"Expériences","cv.edu":"Formation","cv.skills":"Compétences","back.home":"← Retour à l’accueil"
+}};
+let LANG=localStorage.getItem('LANG')||'en';
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n'); el.innerHTML = I18N[LANG][k] || el.innerHTML;
+  });
+  document.documentElement.lang=LANG;
+}
+
+/* posts */
+const postsData=[
+ {title_en:"Zero-base budgeting in 90 minutes",title_fr:"Budget base zéro en 90 minutes",tag:"Control",date:"2025-08-15",body_en:"Scope → assumptions → drivers → versions. KPI dictionary and checks.",body_fr:"Périmètre → hypothèses → drivers → versions. Dictionnaire KPI et contrôles."},
+ {title_en:"DCF: 7 common traps",title_fr:"DCF : 7 pièges fréquents",tag:"Corporate Finance",date:"2025-07-02",body_en:"Rates, terminal value, working capital, maintenance capex, effective taxes, dilution, consistency.",body_fr:"Taux, TV, BFR, capex de maintenance, taxes effectives, dilution, cohérence."}
+];
+const postsEl=document.getElementById('posts');
+function renderPosts(){
+  postsEl.innerHTML=postsData.map(p=>{
+    const t=LANG==='en'?p.title_en:p.title_fr, b=LANG==='en'?p.body_en:p.body_fr;
+    const d=new Date(p.date).toLocaleDateString(LANG==='en'?'en-GB':'fr-FR',{year:'numeric',month:'short',day:'2-digit'});
+    return `<div class="card p16"><div class="row" style="align-items:flex-start"><div class="badge">📝</div><div><strong>${t}</strong> <span class="badge">${p.tag}</span><div class="muted">${d}</div><p>${b}</p></div></div></div>`;
+  }).join('');
+}
+
+/* Articles page filter */
+function renderArticlesPage(q=""){
+  const list=document.getElementById('list'); if(!list) return;
+  const items=postsData.filter(p=>{
+    const t=LANG==='en'?p.title_en:p.title_fr; const b=LANG==='en'?p.body_en:p.body_fr;
+    return (t+b).toLowerCase().includes(q.toLowerCase());
+  });
+  list.innerHTML=items.map(p=>{
+    const t=LANG==='en'?p.title_en:p.title_fr; const b=LANG==='en'?p.body_en:p.body_fr;
+    const d=new Date(p.date).toLocaleDateString(LANG==='en'?'en-GB':'fr-FR',{year:'numeric',month:'short',day:'2-digit'});
+    return `<div class="card p16"><strong>${t}</strong> <span class="badge">${p.tag}</span><div class="muted">${d}</div><p>${b}</p></div>`;
+  }).join('');
+}
+
+/* header fullbar + indicator */
+const hdr=document.getElementById('hdr'), menu=document.getElementById('menu');
+const tabs=Array.from(menu.querySelectorAll('.tab')), indicator=document.getElementById('indicator');
+const sections=['home','portfolio','career','education','articles','contact'].map(id=>document.getElementById(id));
+function moveIndicator(el){const pr=menu.getBoundingClientRect(), r=el.getBoundingClientRect(); indicator.style.width=r.width+'px'; indicator.style.transform=`translateX(${r.left-pr.left}px)`;}
+function setActive(id){tabs.forEach(a=>a.classList.toggle('active',a.dataset.id===id)); const el=tabs.find(a=>a.dataset.id===id); if(el) moveIndicator(el);}
+function onScroll(){const y=window.scrollY+140; let cur=sections[0].id; for(const s of sections){if(s.offsetTop<=y) cur=s.id;} setActive(cur); hdr.classList.toggle('show-full', window.scrollY>180);}
+tabs.forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); const id=a.getAttribute('href').slice(1); const el=document.getElementById(id); const top=el.getBoundingClientRect().top+window.scrollY-80; window.scrollTo({top,behavior:'smooth'});} ));
+
+/* contact */
+document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault(); const fd=new FormData(e.target); console.log('contact',Object.fromEntries(fd.entries())); e.target.reset(); toast(LANG==='en'?'Message sent':'Message envoyé');});
+function toast(msg){const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200)}
+function copy(text){navigator.clipboard.writeText(text); toast(LANG==='en'?'Copied':'Copié')}
+
+/* language buttons */
+document.getElementById('btnFR').onclick=()=>{LANG='fr';localStorage.setItem('LANG',LANG);applyI18n();renderPosts();renderArticlesPage(document.getElementById('q')?.value||"")};
+document.getElementById('btnEN').onclick=()=>{LANG='en';localStorage.setItem('LANG',LANG);applyI18n();renderPosts();renderArticlesPage(document.getElementById('q')?.value||"")};
+
+/* page-mode routing (same file) */
+function getParam(name){const u=new URL(location.href); return u.searchParams.get(name);}
+function enterPageMode(which){
+  document.body.classList.add('page-mode'); hdr.classList.remove('show-full');
+  // cache home sections
+  ['home','portfolio','career','education','articles','contact'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('topbar').style.display='flex';
+  if(which==='cv'){ document.getElementById('cvPage').style.display='block'; }
+  if(which==='articles'){ document.getElementById('articlesPage').style.display='block'; renderArticlesPage(); const q=document.getElementById('q'); q.oninput=(e)=>renderArticlesPage(e.target.value); }
+}
+function enterHomeMode(){
+  document.body.classList.remove('page-mode');
+  ['home','portfolio','career','education','articles','contact'].forEach(id=>document.getElementById(id).style.display='');
+  document.getElementById('cvPage').style.display='none';
+  document.getElementById('articlesPage').style.display='none';
+}
+
+/* init */
+document.getElementById('year').textContent=new Date().getFullYear();
+window.addEventListener('scroll', onScroll);
+window.addEventListener('load', ()=>{
+  applyI18n(); renderPosts(); onScroll(); moveIndicator(tabs[0]);
+  const p=getParam('p'); if(p==='cv'||p==='articles') enterPageMode(p); else enterHomeMode();
+});
 </script>
-</body></html>
+</body>
+</html>
